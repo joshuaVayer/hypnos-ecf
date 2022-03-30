@@ -9,7 +9,7 @@ const bodyParser = require("body-parser");
 // UTILS & MIDDLEWARES
 const logger = require("@utils/logger");
 const requestLogger = require("@middlewares/requestLogger");
-const { findOrCreateAdmin } = require("@utils/admin");
+const initMongo = require("@utils/initMongo");
 const { texts, defaultPort, urlRoot } = require("@utils/config");
 
 // ENV VARIABLES
@@ -48,16 +48,15 @@ mongoose
       app.use(urlRoot, routes);
 
       /* ====================================
-       * ADMIN USER
+       * INIT MONGODB WITH ROLES & ADMIN
        * ====================================
        */
-      findOrCreateAdmin()
-        .then(superAdminExist => {
-          if (!superAdminExist) {
-            logger.info(texts.superAdminNotFound);
-            process.exit(1);
-          }
-        });
+      initMongo().then(success => {
+        if (!success) {
+          logger.error(texts.initMongoError);
+          process.exit(1);
+        }
+      });
     })
   )
   .catch((err) => {
