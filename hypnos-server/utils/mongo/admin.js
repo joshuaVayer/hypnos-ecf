@@ -6,7 +6,6 @@ const userIsAdmin = async req => {
   if (!token || !token.id) return false;
 
   const user = await User.findOne({ _id: token.id }).populate("role");
-  console.log("user", user);
   if (!user || !user.role) return false;
 
   return user.role.name === "admin";

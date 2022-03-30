@@ -1,23 +1,8 @@
-const { User } = require("@models/users");
+const Rooms = require("@models/rooms");
 const Facility = require("@models/facilities");
 const { userIsAdmin } = require("@utils/mongo/admin");
 const { generateCrudMethods } = require("@utils/mongo");
-const { getTokenFromHeaders } = require("@utils/token");
-
-const isAllowedUser = async req => {
-  const token = getTokenFromHeaders(req);
-  if (!token || !token.id) return false;
-
-  const user = await User.findOne({ _id: token.id }).populate("role");
-  if (!user) return false;
-
-  const facilityId = req.params.id;
-  const facilitiesIds = user.facilities.map(facility => facility.toString());
-  const isAllowedUser =
-    facilitiesIds.includes(facilityId) || user.role.name === "admin";
-
-  return isAllowedUser;
-};
+const { isAllowedFacilityUser } = require("@utils/mongo/user");
 
 module.exports = {
   // 1 - CRUD OPERATIONS
@@ -28,27 +13,27 @@ module.exports = {
     const isAdmin = await userIsAdmin(req);
     if (!isAdmin) return res.status(403).json({ error: "Unauthorized operation" });
 
-    const facility = await Facility.create(req.body);
-    return res.status(201).json(facility);
+    return generateCrudMethods(Facility).create(req, res);
   },
 
   update: async (req, res) => {
-    if (!isAllowedUser(req)) {
+    if (!isAllowedFacilityUser(req)) {
       return res.status(401).send("Unauthorized operation or no corresponding facility");
     }
 
-    const facilityId = req.params.id;
-    const updatedFacility = await Facility.findByIdAndUpdate(facilityId, req.body);
-    return res.status(200).send(updatedFacility);
+    return generateCrudMethods(Facility).update(req, res);
   },
 
   remove: async (req, res) => {
-    if (!isAllowedUser(req)) {
+    if (!isAllowedFacilityUser(req)) {
       return res.status(401).send("Unauthorized operation or no corresponding facility");
     }
+    // Check for associated rooms
+    const rooms = await Rooms.find({ facility: req.params.id });
+    if (rooms.length > 0) {
+      return res.status(400).send("Cannot remove facility with rooms");
+    }
 
-    const facilityId = req.params.id;
-    const removedFacility = await Facility.findByIdAndRemove(facilityId);
-    return res.status(200).send(removedFacility);
+    return generateCrudMethods(Facility).remove(req, res);
   }
 };

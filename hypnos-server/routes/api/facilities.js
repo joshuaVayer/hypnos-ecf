@@ -1,13 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const {
-  getAll,
-  getById,
-  create,
-  update,
-  remove
-} = require("@controllers/facilities");
+const facility = require("@controllers/facilities");
 
 /**
  * Add a new facilty
@@ -25,21 +19,21 @@ const {
  *  updatedAt: { type: Date, default: Date.now, required: true },
  * }
  */
-router.post("/", create);
+router.post("/", facility.create);
 
 /**
  * Get all roles
  * @name /facility
  * @method GET
  */
-router.get("/", getAll);
+router.get("/", facility.getAll);
 
 /**
  * Get all roles
  * @name /facility
  * @method GET
  */
-router.get("/:id", getById);
+router.get("/:id", facility.getById);
 
 /**
  * Update an existing role
@@ -57,13 +51,13 @@ router.get("/:id", getById);
  *  updatedAt: { type: Date, default: Date.now, required: true },
  * }
  */
-router.put("/:id", update);
+router.put("/:id", facility.update);
 
 /**
  * Delete a role
  * @name /facility/:id
  * @method DELETE
  */
-router.delete("/:id", remove);
+router.delete("/:id", facility.remove);
 
 module.exports = router;
