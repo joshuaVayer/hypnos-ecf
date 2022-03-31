@@ -25,7 +25,7 @@ const {
  *  updatedAt: { type: Date, default: Date.now, required: true },
  * }
  */
-router.put("/", create);
+router.post("/", create);
 
 /**
  * Get all roles
@@ -44,7 +44,7 @@ router.get("/:id", getById);
 /**
  * Update an existing role
  * @name /facility/:id
- * @method POST
+ * @method PUT
  * @body {
  *  name: { type: String, required: true },
  *  description: { type: String },
@@ -57,7 +57,7 @@ router.get("/:id", getById);
  *  updatedAt: { type: Date, default: Date.now, required: true },
  * }
  */
-router.post("/:id", update);
+router.put("/:id", update);
 
 /**
  * Delete a role

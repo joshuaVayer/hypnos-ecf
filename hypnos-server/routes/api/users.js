@@ -5,13 +5,14 @@ const {
   getAll,
   getById,
   create,
-  remove
+  remove,
+  update
 } = require("@controllers/users");
 
 /**
  * Add a new user
  * @name /user
- * @method PUT
+ * @method POST
  * @body {
  *  username: String,
  *  passwordHash: String,
@@ -22,7 +23,7 @@ const {
  *  updatedAt: { type: Date, default: Date.now, required: true }
  * }
  */
-router.put("/", create);
+router.post("/", create);
 
 /**
  * Get a user by id
@@ -39,13 +40,11 @@ router.get("/", getAll);
 router.get("/:id", getById);
 
 /**
- * Uodate an existing user
- * @name path
+ * Update an existing user
+ * @name PUT
  * @param {type} param {description}
  */
-router.post("/:id", function (_, res, next) {
-  res.send("respond with a resource");
-});
+router.put("/:id", update);
 
 /**
  * Delete a user

@@ -7,23 +7,24 @@ const UserSchema = new Schema({
   passwordHash: { type: String, required: true },
   name: { type: String, required: true },
   facilities: [{ type: Schema.Types.ObjectId, ref: "Facility", default: [] }],
-  role: { type: Schema.Types.ObjectId, default: "Role" },
+  role: { type: Schema.Types.ObjectId, required: true, ref: "Role" },
   createdAt: { type: Date, default: Date.now, required: true },
   updatedAt: { type: Date, default: Date.now, required: true }
 });
 
-// // passwordHash should not be revealed
-// UserSchema.set("toJSON", {
-//   transform: (_, returnedObject) =>
-//     delete returnedObject.passwordHash
-// });
+// passwordHash should not be revealed
+UserSchema.set("toJSON", {
+  transform: (_, returnedObject) => {
+    delete returnedObject.passwordHash;
+    return returnedObject;
+  }
+});
 
 UserSchema.plugin(uniqueValidator);
 
 // ROLE
 const RoleSchema = new Schema({
   name: { type: String, required: true, unique: true },
-  users: [{ type: Schema.Types.ObjectId, ref: "User", default: [] }],
   description: String,
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }

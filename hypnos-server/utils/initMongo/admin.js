@@ -10,8 +10,7 @@ const { DEFAULT_ADMIN_PASSWORD } = process.env;
 
 const findOrCreateAdmin = () =>
   new Promise((resolve, reject) => {
-    Role.find({ name: "admin" }).then(role => {
-      console.log(role);
+    Role.find({ name: "admin" }).then(([role]) => {
       if (!role) {
         reject(new Error("Admin role not found"));
         return;

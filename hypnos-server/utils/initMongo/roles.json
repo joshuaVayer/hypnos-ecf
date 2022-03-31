@@ -1,0 +1,14 @@
+[
+  {
+    "name": "admin",
+    "description": "Has acces to the entire application"
+  },
+  {
+    "name": "manager",
+    "description": "Has access to his linked facilities"
+  },
+  {
+    "name": "client",
+    "description": "Can access his bookings, make new reservations, update existing reservations"
+  }
+]

@@ -13,7 +13,7 @@ const texts = {
   mongoConnectionError: (err) =>
   `Error connecting to MongoDB: ${err}`,
 
-  superAdminNotFound: "Unable to find or create SuperAdmin 🤷‍♂️, exiting..."
+  initMongoError: "Unable to initialize MongoDB 🤷‍♂️. Additional logs should be available in the server logs."
 };
 
 module.exports = {
