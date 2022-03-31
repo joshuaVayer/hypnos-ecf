@@ -5,6 +5,7 @@ require("module-alias/register");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
+const upload = require("express-fileupload");
 
 // UTILS & MIDDLEWARES
 const logger = require("@utils/logger");
@@ -34,16 +35,20 @@ mongoose
       app.use(requestLogger);
 
       /* ====================================
-       * BODY PARSER
+       * BODY PARSER & FILE UPLOAD
        * ====================================
        */
       app.use(bodyParser.json({ limit: "50mb" }));
       app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 
+      app.use(upload());
+
       /* ====================================
        * ROUTES
        * ====================================
        */
+      app.use(express.static("public"));
+
       const routes = require("@routes");
       app.use(urlRoot, routes);
 
