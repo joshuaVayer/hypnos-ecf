@@ -5,10 +5,10 @@ const crypto = require("crypto");
 const logger = require("@utils/logger");
 
 const { userIsAdmin } = require("@utils/mongo/admin");
-const { userIsManager } = require("@utils/mongo/user");
+const { userIs } = require("@utils/mongo/user");
 
 const upload = async (req, res) => {
-  [userIsAdmin(req), userIsManager(req)].PromiseAll()
+  [userIsAdmin(req), userIs("manager", req)].PromiseAll()
     .then(([isAdmin, isManager]) => {
       if (!isAdmin && !isManager) {
         res.status(403).json({
