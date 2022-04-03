@@ -2,6 +2,7 @@
 require("module-alias/register");
 
 // DEPENDENCIES
+const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
@@ -18,6 +19,7 @@ require("dotenv").config();
 const { PORT, MONGODB_URI } = process.env || { PORT: defaultPort };
 
 const app = express();
+app.use(cors());
 
 logger.info(texts.mongoConnection);
 

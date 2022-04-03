@@ -36,6 +36,23 @@ const signup = async (req, res) => {
   res.send({ token, user });
 };
 
+// const checkTokenValidity = async (req, res) => {
+//   const user = await User.findById(req.user.id);
+//   if (!user) return res.status(200).send({ valid: false });
+
+//   const token = getTokenFromHeaders(req);
+
+//   if (!token) return res.status(200).send({ valid: false });
+
+//   const validity = await jwt.verify(token, process.env.JWT_SECRET);
+//   console.log(validity);
+
+//   const decoded = jwt.decode(token, process.env.JWT_SECRET);
+//   if (decoded.id !== user._id) return res.status(200).send({ valid: false });
+
+//   return res.status(200).send({ valid: true });
+// };
+
 module.exports = {
   login,
   signup
