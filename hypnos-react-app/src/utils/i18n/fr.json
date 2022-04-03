@@ -1,0 +1,13 @@
+{
+  "signin": "Se connecter",
+  "signout": "Se déconnecter",
+  "register": "S'inscrire",
+  "invalid_email": "Veuillez entrer une adresse email valide.",
+  "required_field": "Ce champ est requis.",
+  "signin_to_your_account": "Connectez-vous à votre compte",
+  "username": "Email de connexion",
+  "password": "Mot de passe",
+  "invalid_credentials": "Email ou mot de passe invalide.",
+  "forgot_password": "Mot de passe oublié ?",
+  "no_account": "Pas de compte ?"
+}
