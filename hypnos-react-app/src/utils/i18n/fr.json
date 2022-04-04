@@ -9,5 +9,14 @@
   "password": "Mot de passe",
   "invalid_credentials": "Email ou mot de passe invalide.",
   "forgot_password": "Mot de passe oublié ?",
-  "no_account": "Pas de compte ?"
+  "no_account": "Pas de compte ?",
+  "create_account": "Créer un compte",
+  "account_created": "Compte créé avec succès !",
+  "go_to_dashboard": "Mon compte →",
+  "password_confirmation": "Confimer le mot de passe",
+  "have_account": "Vous avez déjà un compte ?",
+  "name": "Nom complet",
+  "invalid_password": "Le mot de passe doit contenir au moins 6 caractères.",
+  "invalid_password_confirm": "Les mots de passe ne correspondent pas.",
+  "invalid_name": "Le nom doit contenir au moins 3 caractères."
 }

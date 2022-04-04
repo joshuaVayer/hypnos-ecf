@@ -1,7 +1,13 @@
 import axios from "axios";
+import ls from "localstorage-slim";
+
 const API_URL = process.env.REACT_APP_API_URL;
 
 class AuthService {
+  constructor() {
+    ls.config.encrypt = true;
+  }
+
   login(username, password) {
     return axios
       .post(`${API_URL}/auth/login/`, {
@@ -10,7 +16,7 @@ class AuthService {
       })
       .then(response => {
         if (response.data.token) {
-          localStorage.setItem("user", JSON.stringify(response.data));
+          ls.set("user", JSON.stringify(response.data));
         }
         return response;
       });
@@ -20,10 +26,10 @@ class AuthService {
     localStorage.removeItem("user");
   }
 
-  register(username, email, password) {
+  register(name, email, password) {
     return axios.post(`${API_URL}/auth/signup/`, {
-      username,
-      email,
+      name,
+      username: email,
       password
     });
   }
@@ -33,7 +39,8 @@ class AuthService {
   }
 
   getCurrentUser() {
-    return JSON.parse(localStorage.getItem("user"));
+    const user = ls.get("user");
+    return user ? JSON.parse(user) : null;
   }
 
   // Check for token validity
