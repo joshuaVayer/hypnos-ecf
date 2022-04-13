@@ -1,6 +1,7 @@
 const fs = require("fs");
 const path = require("path");
-const crypto = require("crypto");
+
+const { convertBytes } = require("@utils/convert");
 
 const logger = require("@utils/logger");
 
@@ -25,10 +26,8 @@ const upload = async (req, res) => {
 
       Object.keys(req.files).forEach(key => {
         const file = req.files[key];
-        const uuid = crypto.randomUUID().replace(/-/g, "");
-        const fileSuffix = path.extname(file.name);
         const fileName = String(file.name).replace(/\s/g, "_");
-        const uploadPath = path.join(__dirname, "../public/uploads", `${uuid}${fileSuffix}`);
+        const uploadPath = path.join(__dirname, "../public/uploads", fileName);
 
         // Move the file from the temporary location to the intended location
         file.mv(uploadPath, err => {
@@ -36,10 +35,10 @@ const upload = async (req, res) => {
         });
 
         uploadedFiles.push({
-          uuid,
-          originalName: fileName,
-          name: `${uuid}${fileSuffix}`,
-          path: `${req.protocol}://${req.get("host")}/uploads/${uuid}${fileSuffix}`
+          name: fileName,
+          type: file.mimetype,
+          size: file.size,
+          path: `${req.protocol}://${req.get("host")}/uploads/${fileName}`
         });
       });
 
@@ -76,7 +75,23 @@ const remove = async (req, res) => {
   }
 };
 
+const getAll = async (req, res) => {
+  const files = fs.readdirSync(path.join(__dirname, "../public/uploads"));
+  const uploadedFiles = files.map(file => {
+    const fileSuffix = path.extname(file);
+    return {
+      type: fileSuffix,
+      size: convertBytes(fs.statSync(path.join(__dirname, "../public/uploads", file)).size),
+      name: file,
+      path: `${req.protocol}://${req.get("host")}/uploads/${file}`
+    };
+  });
+
+  return res.status(200).json(uploadedFiles);
+};
+
 module.exports = {
   upload,
-  remove
+  remove,
+  getAll
 };

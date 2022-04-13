@@ -1,33 +1,31 @@
 import React from "react";
+import { Navigate } from "react-router-dom";
+
 import AuthService from "@Services/Auth";
 
-const HocAuthentication = Component => {
-  return class AuthenticatedComponent extends React.Component {
-    isAuthenticated() {
+const RequireAuth = Component => {
+  return class Apps extends React.Component {
+    constructor(props) {
+      super(props);
       const currentUser = AuthService.getCurrentUser();
-      if (currentUser) return true;
-      return false;
+
+      // Should Check token validity
+
+      this.state = {
+        isAuthenticated: currentUser && currentUser.token !== null
+      };
     }
 
     render() {
-      const loginErrorMessage = (
-        <div>
-          Please <a href="/login">login</a> in order to view this part of the
-          application.
-        </div>
-      );
+      const { isAuthenticated } = this.state;
 
-      return (
-        <div>
-          {this.isAuthenticated === true ? (
-            <Component {...this.props} />
-          ) : (
-            loginErrorMessage
-          )}
-        </div>
-      );
+      if (!isAuthenticated) {
+        return <Navigate to="/login" />;
+      }
+
+      return <Component {...this.props} />;
     }
   };
 };
 
-export default HocAuthentication;
+export default RequireAuth;

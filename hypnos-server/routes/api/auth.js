@@ -3,7 +3,8 @@ const router = express.Router();
 
 const {
   login,
-  signup
+  signup,
+  getUserRole
 } = require("@controllers/auth");
 
 /**
@@ -18,5 +19,7 @@ const {
 router.post("/login", login);
 
 router.post("/signup", signup);
+
+router.get("/role", getUserRole);
 
 module.exports = router;

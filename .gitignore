@@ -132,3 +132,6 @@ dist
 
 #Mac
 .DS_Store
+
+# Frontend build
+build

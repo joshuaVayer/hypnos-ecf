@@ -96,11 +96,10 @@ class AuthLogin extends React.Component {
             </h2>
             <img
               className="mx-auto mt-6 h-12 w-auto"
-              src={`${process.env.REACT_APP_API_URL}/uploads/b6471688d20f493e9b8ba4d1ca6575fb.png`}
+              src={`${process.env.REACT_APP_UPLOAD_URL}/b6471688d20f493e9b8ba4d1ca6575fb.png`}
               alt="Workflow"
             />
           </div>
-
           <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
             <div className="bg-white py-8 px-4 shadow-md sm:rounded-lg sm:px-10 border border-gray-200">
               <Form onSubmit={this.handleLogin} ref={c => (this.form = c)}>

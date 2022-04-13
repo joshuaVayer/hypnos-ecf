@@ -40,7 +40,7 @@ class Register extends React.Component {
       password: "",
       passwordConfirmation: "",
       message: "",
-      successful: true
+      successful: false
     };
   }
 
@@ -128,7 +128,7 @@ class Register extends React.Component {
             </h2>
             <img
               className="mx-auto mt-6 h-12 w-auto"
-              src={`${process.env.REACT_APP_API_URL}/uploads/b6471688d20f493e9b8ba4d1ca6575fb.png`}
+              src={`${process.env.REACT_APP_UPLOAD_URL}/b6471688d20f493e9b8ba4d1ca6575fb.png`}
               alt="Workflow"
             />
           </div>
@@ -268,82 +268,6 @@ class Register extends React.Component {
           </div>
         </div>
       </>
-      // <div className="col-md-12">
-      //   <div className="card card-container">
-      //     <img
-      //       src="//ssl.gstatic.com/accounts/ui/avatar_2x.png"
-      //       alt="profile-img"
-      //       className="profile-img-card"
-      //     />
-      //     <Form
-      //       onSubmit={this.handleRegister}
-      //       ref={c => {
-      //         this.form = c;
-      //       }}
-      //     >
-      //       {!this.state.successful && (
-      //         <div>
-      //           <div className="form-group">
-      //             <label htmlFor="username">Username</label>
-      //             <Input
-      //               type="text"
-      //               className="form-control"
-      //               name="username"
-      //               value={this.state.username}
-      //               onChange={this.onChangeUsername}
-      //               validations={[required, name]}
-      //             />
-      //           </div>
-      //           <div className="form-group">
-      //             <label htmlFor="email">Email</label>
-      //             <Input
-      //               type="text"
-      //               className="form-control"
-      //               name="email"
-      //               value={this.state.email}
-      //               onChange={this.onChangeEmail}
-      //               validations={[required, email]}
-      //             />
-      //           </div>
-      //           <div className="form-group">
-      //             <label htmlFor="password">Password</label>
-      //             <Input
-      //               type="password"
-      //               className="form-control"
-      //               name="password"
-      //               value={this.state.password}
-      //               onChange={this.onChangePassword}
-      //               validations={[required, password]}
-      //             />
-      //           </div>
-      //           <div className="form-group">
-      //             <button className="btn btn-primary btn-block">Sign Up</button>
-      //           </div>
-      //         </div>
-      //       )}
-      //       {this.state.message && (
-      //         <div className="form-group">
-      //           <div
-      //             className={
-      //               this.state.successful
-      //                 ? "alert alert-success"
-      //                 : "alert alert-danger"
-      //             }
-      //             role="alert"
-      //           >
-      //             {this.state.message}
-      //           </div>
-      //         </div>
-      //       )}
-      //       <CheckButton
-      //         style={{ display: "none" }}
-      //         ref={c => {
-      //           this.checkBtn = c;
-      //         }}
-      //       />
-      //     </Form>
-      //   </div>
-      // </div>
     );
   }
 }

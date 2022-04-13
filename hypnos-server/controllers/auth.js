@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const { User, Role } = require("@models/users");
+const { getTokenFromHeaders } = require("@utils/token");
 
 const login = async (req, res) => {
   const { username, password } = req.body;
@@ -37,24 +38,22 @@ const signup = async (req, res) => {
   res.send({ token, user });
 };
 
-// const checkTokenValidity = async (req, res) => {
-//   const user = await User.findById(req.user.id);
-//   if (!user) return res.status(200).send({ valid: false });
+const getUserRole = async (req, res) => {
+  const token = getTokenFromHeaders(req);
 
-//   const token = getTokenFromHeaders(req);
+  if (!token) return res.status(200).send({ role: null });
 
-//   if (!token) return res.status(200).send({ valid: false });
+  const user = await User.findById(token.id);
+  if (!user) return res.status(200).send({ role: null });
 
-//   const validity = await jwt.verify(token, process.env.JWT_SECRET);
-//   console.log(validity);
+  const role = await Role.findById(user.role);
+  if (!role) return res.status(200).send({ role: null });
 
-//   const decoded = jwt.decode(token, process.env.JWT_SECRET);
-//   if (decoded.id !== user._id) return res.status(200).send({ valid: false });
-
-//   return res.status(200).send({ valid: true });
-// };
+  res.send({ role });
+};
 
 module.exports = {
   login,
-  signup
+  signup,
+  getUserRole
 };

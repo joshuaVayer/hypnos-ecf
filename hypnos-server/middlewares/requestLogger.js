@@ -27,7 +27,7 @@ const requestLogger = (req, res, next) => {
   const { statusCode } = res;
 
   const durationInMilliseconds = getRequestDuration(process.hrtime());
-  const log = `[${chalk.blue(
+  const log = `[SERVER][${chalk.blue(
     formattedDate
   )}] ${method}:${url} ${statusCode} ${chalk.red(
     durationInMilliseconds.toLocaleString() + "ms"

@@ -8,6 +8,7 @@ const FacilitySchema = new Schema({
   state: { type: String, required: true },
   zip: { type: String, required: true },
   phone: { type: String, required: true },
+  coverImage: { type: String, default: "" },
   createdAt: { type: Date, default: Date.now, required: true },
   updatedAt: { type: Date, default: Date.now, required: true }
 });

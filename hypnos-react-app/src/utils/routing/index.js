@@ -20,9 +20,14 @@ const Routing = () => {
 
   return (
     <Routes>
-      {routes.map(({ key, path, element }) => (
-        <Route key={key} path={path} element={element(props)} />
-      ))}
+      {routes.map(({ key, path, element }) => {
+        if (Array.isArray(path)) {
+          return path.map(p => {
+            return <Route key={key} path={p} element={element(props)} />;
+          });
+        }
+        return <Route key={key} path={path} element={element(props)} />;
+      })}
     </Routes>
   );
 };

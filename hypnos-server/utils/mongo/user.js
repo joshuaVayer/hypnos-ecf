@@ -3,7 +3,7 @@ const Room = require("@models/rooms");
 const { User, Role } = require("@models/users");
 const { Booking } = require("@models/bookings");
 
-const { isAdmin } = require("@utils/mongo/admin");
+const { userIsAdmin } = require("@utils/mongo/admin");
 const { getTokenFromHeaders } = require("@utils/token");
 
 const userIs = async (role = "", req) => {
@@ -20,6 +20,8 @@ const isAllowedFacilityUser = async (req, fromRoom = false) => {
   const token = getTokenFromHeaders(req);
   if (!token || !token.id) return false;
 
+  if (userIsAdmin(req)) return true;
+
   const user = await User.findOne({ _id: token.id }).populate("role");
   if (!user) return false;
 
@@ -34,10 +36,7 @@ const isAllowedFacilityUser = async (req, fromRoom = false) => {
   }
 
   const facilitiesIds = user.facilities.map(facility => facility.toString());
-  const isAllowedUser =
-    facilitiesIds.includes(facilityId) || user.role.name === "admin";
-
-  return isAllowedUser;
+  return facilitiesIds.includes(facilityId);
 };
 
 const isBookingOwnerOrAdmin = async (req) => {
@@ -60,7 +59,7 @@ const userIsAllowedToCreateRole = async (req) => {
     // New clients should use the /auth/signup endpoint to create a new user
     if (role.name === "client") return false;
 
-    return isAdmin(req);
+    return userIsAdmin(req);
   }
 
   return false;

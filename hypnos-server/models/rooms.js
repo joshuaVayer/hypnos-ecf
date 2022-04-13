@@ -1,9 +1,8 @@
 const { Schema, model } = require("mongoose");
-const uniqueValidator = require("mongoose-unique-validator");
 
 const RoomSchema = new Schema({
   facility: { type: Schema.Types.ObjectId, ref: "Facility", required: true },
-  roomNumber: { type: String, required: true, unique: true },
+  roomNumber: { type: String, required: true },
   capacity: { type: Number, required: true, min: 1, default: 1 },
   description: { type: String, required: true, default: "" },
   price: { type: Number, required: true, default: 0 },
@@ -12,8 +11,6 @@ const RoomSchema = new Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
-
-RoomSchema.plugin(uniqueValidator);
 
 const Room = model("Room", RoomSchema);
 

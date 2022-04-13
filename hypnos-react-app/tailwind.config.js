@@ -1,12 +1,16 @@
 module.exports = {
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
+  safelist: ["bg-red", "bg-red-600", "bg-green", "bg-green-600"],
   theme: {
     extend: {
+      fontFamily: {
+        lora: ["Lora"],
+        raylig: ["Raylig", "sans-serif"]
+      },
       colors: {
         white: "#ffffff",
         black: "#000000",
         danger: "var(--danger)",
-        mobile: "var(--mobile)",
         primary: {
           DEFAULT: "#075985",
           50: "#4EBBF6",
@@ -27,5 +31,9 @@ module.exports = {
       }
     }
   },
-  plugins: [require("@tailwindcss/forms"), require("@tailwindcss/line-clamp")]
+  plugins: [
+    require("@tailwindcss/forms"),
+    require("@tailwindcss/line-clamp"),
+    require("@tailwindcss/aspect-ratio")
+  ]
 };

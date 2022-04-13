@@ -18,7 +18,7 @@ module.exports = {
 
   create: async (req, res) => {
     const isAllowed = await isAllowedFacilityUser(req, true);
-    if (!isAllowed) return res.status(403).send("Unauthorized operation or no corresponding room");
+    if (!isAllowed) return res.status(403).send("Unauthorized operation");
 
     return generateCrudMethods(Room).create(req, res);
   },

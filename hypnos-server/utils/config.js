@@ -1,6 +1,6 @@
 const defaultPort = 3001;
 
-const urlRoot = "/";
+const urlRoot = "/api";
 
 const texts = {
   mongoConnection: "Connecting to MongoDB...",
