@@ -18,12 +18,13 @@ const login = async (req, res) => {
 };
 
 const signup = async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, name } = req.body;
   const clientRoleId = await Role.findOne({ name: "client" });
 
   if (!clientRoleId) return res.status(400).send("Client role not found");
 
   const user = await User.create({
+    name,
     username,
     passwordHash: await bcrypt.hash(password, 10),
     role: clientRoleId

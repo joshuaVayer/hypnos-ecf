@@ -36,3 +36,36 @@ export const email = value => {
     );
   }
 };
+
+export const name = value => {
+  if (value.length < 3 || value.length > 40) {
+    return (
+      <Alert type={"error"} className="mt-2" text={i18next.t("invalid_name")} />
+    );
+  }
+};
+
+export const password = value => {
+  if (value.length < 6) {
+    return (
+      <Alert
+        type={"error"}
+        className="mt-2"
+        text={i18next.t("invalid_password")}
+      />
+    );
+  }
+};
+
+export const passwordConfirm = (value, allValues) => {
+  console.log(value, allValues);
+  if (value !== allValues.base) {
+    return (
+      <Alert
+        type={"error"}
+        className="mt-2"
+        text={i18next.t("invalid_password_confirm")}
+      />
+    );
+  }
+};
