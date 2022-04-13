@@ -5,11 +5,11 @@ import { isEmail } from "validator";
 import Alert from "@Display/Alert";
 
 // Style
-const input =
-  "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm";
-
 export const formStyle = {
-  input
+  input:
+    "appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500 sm:text-sm",
+  textArea:
+    "max-w-lg shadow-sm block w-full focus:ring-primary-500 focus:border-primary-500 sm:text-sm border border-gray-300 rounded-md"
 };
 
 // Validators
@@ -58,7 +58,6 @@ export const password = value => {
 };
 
 export const passwordConfirm = (value, allValues) => {
-  console.log(value, allValues);
   if (value !== allValues.base) {
     return (
       <Alert

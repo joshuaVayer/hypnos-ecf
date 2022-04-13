@@ -1,0 +1,12 @@
+{
+  "name": "hypnos-ecf",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:joshuaVayer/hypnos-ecf.git",
+  "author": "Joshua Vayer <joshua.vayer@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start:prod": "(cd hypnos-server && yarn start) & (cd hypnos-react-app && yarn serve -s build)"
+  },
+  "private": false
+}
