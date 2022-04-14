@@ -5,9 +5,12 @@ const formSubmissionSchema = new Schema({
   email: { type: String, required: true },
   surname: { type: String, required: true },
   interest: { type: String, required: true },
+  content: { type: String, default: "" },
   additionalDetails: { type: Object, required: true, default: {} },
   createdAt: { type: Date, default: Date.now }
 });
+
+// TODO: add unique validation
 
 const FormSubmission = model("FormSubmission", formSubmissionSchema);
 

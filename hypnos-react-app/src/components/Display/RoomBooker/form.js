@@ -134,7 +134,7 @@ class RoomBookerForm extends React.Component {
             htmlFor="facility"
             className="block text-sm font-medium text-gray-700"
           >
-            {i18next.t("facility")}
+            {i18next.t("booking.select_facility")}
           </label>
           <div className="mt-1 sm:mt-0 sm:col-span-1">
             <Select
@@ -159,7 +159,7 @@ class RoomBookerForm extends React.Component {
               htmlFor="room"
               className="block text-sm font-medium text-gray-700"
             >
-              {i18next.t("room")}
+              {i18next.t("booking.select_room")}
             </label>
             <div className="mt-1 sm:mt-0 sm:col-span-1">
               <Select
@@ -178,20 +178,32 @@ class RoomBookerForm extends React.Component {
             </div>
           </div>
         )}
-        {this.isRoomFree() ? (
-          <React.Fragment>
-            <Alert type="success" text={i18next.t("room_free")} />
-            {shouldRedirect ? (
-              <ButtonPrimary onClick={() => navigate("/book")}>
-                {i18next.t("go_to_booking")}
-              </ButtonPrimary>
-            ) : (
-              <ButtonPrimary type="submit">{i18next.t("book")}</ButtonPrimary>
-            )}
-          </React.Fragment>
-        ) : (
-          <Alert type="error" text={i18next.t("booked_room")} />
-        )}
+        <div className="sm:grid sm:grid-cols-3 gap-4">
+          {this.isRoomFree() ? (
+            <React.Fragment>
+              <div className="mt-1 sm:mt-0 sm:col-span-3">
+                <Alert type="success" text={i18next.t("booking.room_free")} />
+              </div>
+              {shouldRedirect ? (
+                <div className="mt-1 sm:mt-0 sm:col-span-1">
+                  <ButtonPrimary onClick={() => navigate("/dashboard/book")}>
+                    {i18next.t("booking.go_to_booking")}
+                  </ButtonPrimary>
+                </div>
+              ) : (
+                <div className="mt-1 sm:mt-0 sm:col-span-1">
+                  <ButtonPrimary type="submit">
+                    {i18next.t("book")}
+                  </ButtonPrimary>
+                </div>
+              )}
+            </React.Fragment>
+          ) : (
+            <div className="mt-1 sm:mt-0 sm:col-span-3">
+              <Alert type="error" text={i18next.t("booking.booked_room")} />
+            </div>
+          )}
+        </div>
       </Form>
     );
   }

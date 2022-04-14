@@ -42,11 +42,12 @@ class Dashboard extends React.Component {
 
   render() {
     if (!this.state.role) return null;
+    const { role } = this.state;
     const { user: userDetails } = this.state.user;
 
     return (
       <div className="min-h-full">
-        <HeaderDashboard user={{ ...userDetails, imageUrl: USER_IMG }} />
+        <HeaderDashboard user={{ ...userDetails, role, imageUrl: USER_IMG }} />
         <main className="-mt-20 pb-8">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-1 lg:gap-8">

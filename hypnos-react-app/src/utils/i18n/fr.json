@@ -98,6 +98,8 @@
   "callout_description_birthdays": "Une salle de réception pour vos anniversaires.",
   "callout_title_more": "Un besoin spécifique, n'hésitez pas à nous contacter à travers notre formulaire de contact.",
   "contact_us": "Contactez-nous",
+  "book_now": "Réserver maintenant",
+  "our_facilities": "Nos établissements",
   "date": {
     "months": [
       "Janvier",
@@ -116,5 +118,42 @@
     "days": {
       "short": ["Dim", "Lun", "Mar", "Mer", "Jeu", "Ven", "Sam"]
     }
-  }
+  },
+  "contact": {
+    "title": "Contactez-nous",
+    "description": "Nous sommes là pour vous. Nous vous répondrons dans les plus brefs délais.",
+    "success": "Votre message a été envoyé avec succès. Merci",
+    "form": {
+      "labels": {
+        "name": "Nom",
+        "surname": "Prénom",
+        "email": "Email",
+        "interest": "Motif du message",
+        "content": "Message"
+      },
+      "placeholders": {
+        "name": "Votre nom",
+        "surname": "Votre prénom",
+        "email": "Votre email",
+        "content": "Votre message..."
+      },
+      "interests": {
+        "default": "",
+        "other": "Autre",
+        "claim": "Je souhaite poser une réclamation",
+        "additional_services": "Je souhaite commander un service supplémentaire",
+        "more_info": "Je souhaite en savoir plus sur une suite",
+        "website_issue": "J’ai un souci avec cette application"
+      },
+      "submit": "Envoyer"
+    }
+  },
+  "booking": {
+    "select_facility": "Sélectionner un établissement",
+    "select_room": "Sélectionner une suite",
+    "room_free": "Bonne nouvelle, cette suite est libre !",
+    "booked_room": "Cette suite est réservée à ces dates.",
+    "go_to_booking": "Réserver cette suite"
+  },
+  "book": "Réserver"
 }

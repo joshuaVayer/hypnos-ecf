@@ -11,9 +11,12 @@ const HeaderDashboard = ({ user }) => {
 
   const navigation = [
     { name: i18next.t("home"), href: "/dashboard" },
-    { name: i18next.t("profile"), href: "/profile" },
-    { name: i18next.t("medias"), href: "/medias" }
+    { name: i18next.t("profile"), href: "/profile" }
   ];
+
+  if (user.role === "admin" || user.role === "manager") {
+    navigation.push({ name: i18next.t("medias"), href: "/medias" });
+  }
 
   const userNavigation = [
     { name: i18next.t("home"), href: "/dashboard" },
@@ -197,7 +200,8 @@ HeaderDashboard.propTypes = {
     name: PropTypes.string,
     email: PropTypes.string,
     username: PropTypes.string,
-    imageUrl: PropTypes.string
+    imageUrl: PropTypes.string,
+    role: PropTypes.string
   }).isRequired
 };
 
