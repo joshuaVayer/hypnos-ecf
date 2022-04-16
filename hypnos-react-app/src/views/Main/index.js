@@ -3,6 +3,7 @@ import withRouter from "@Hoc/Router";
 import PropTypes from "prop-types";
 
 import PageHome from "@Page/Home";
+import ForbidenPage from "@Page/Forbiden";
 import Header from "@Controls/Header";
 import PageFacilityDetails from "@Page/FacilityDetails";
 import PageFacilities from "@Page/Facilities";
@@ -14,6 +15,7 @@ const Main = props => {
     if (view === "facilities" && id) return <PageFacilityDetails id={id} />;
     if (view === "facilities") return <PageFacilities />;
     if (view === "contact") return <PageContact />;
+    if (view === "forbidden") return <ForbidenPage />;
     return <PageHome />;
   };
 

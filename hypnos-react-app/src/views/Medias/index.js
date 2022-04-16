@@ -62,4 +62,4 @@ class Medias extends React.Component {
   }
 }
 
-export default RequireAuth(Medias);
+export default RequireAuth(Medias, ["manager", "admin"]);
