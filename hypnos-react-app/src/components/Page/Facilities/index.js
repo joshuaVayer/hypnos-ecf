@@ -63,10 +63,11 @@ const PageFacilities = () => {
                   </div>
                 </div>
                 <Link
-                  to="/book"
-                  onClick={() =>
-                    localStorage.setItem("facility", JSON.stringify(facility))
-                  }
+                  to="/dashboard/new-booking"
+                  onClick={() => {
+                    localStorage.setItem("target", "/dashboard/new-booking");
+                    localStorage.setItem("facility", JSON.stringify(facility));
+                  }}
                   className="mt-6 flex-shrink-0 flex bg-white bg-opacity-0 py-3 px-4 border border-white border-opacity-25 rounded-md items-center justify-center text-base font-medium text-white hover:bg-opacity-10 sm:mt-0 sm:ml-8 lg:ml-0 lg:w-full"
                 >
                   {i18next.t("book_now")}

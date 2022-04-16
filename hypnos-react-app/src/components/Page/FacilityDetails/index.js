@@ -128,6 +128,7 @@ const PageFacilityDetails = ({ id }) => {
       </div>
       {facility && facility._id && selectedRoom && (
         <RoomBooker
+          key={2}
           room={selectedRoom}
           facility={facility}
           noFacilityUpdate

@@ -30,9 +30,6 @@ const CardFacility = ({ facility, onClick }) => {
             <h3 className="text-gray-900 text-lg font-medium truncate">
               {facility.name}
             </h3>
-            {/* <div className="absolute inset-0 flex items-end -left-3 -bottom-1">
-              <div className="w-full border-t border-gray-300" />
-            </div> */}
           </div>
           <p className="mt-2 text-gray-500 text-sm truncate flex flex-row gap-2">
             <PhoneIcon className="w-4 h-4 text-gray-500 mt-1" />

@@ -1,5 +1,8 @@
 import React from "react";
+import PropTypes from "prop-types";
 import AuthService from "@Services/Auth";
+
+import withRouter from "@Hoc/Router";
 import HocAuthentication from "@Hoc/Auth";
 
 import Footer from "@Display/Footer";
@@ -24,9 +27,17 @@ class Dashboard extends React.Component {
     // Ensure that user's datas are not corrupted
     AuthService.getUserRole().then(({ data }) => {
       if (data.role) {
-        this.setState({ role: data.role.name });
+        this.setState({ role: data.role.name }, this.redirectToLastTarget);
       }
     });
+  }
+
+  redirectToLastTarget() {
+    const target = localStorage.getItem("target");
+    if (target) {
+      localStorage.removeItem("target");
+      this.props.router.navigate(target);
+    }
   }
 
   getDashboardContent() {
@@ -64,4 +75,8 @@ class Dashboard extends React.Component {
   }
 }
 
-export default HocAuthentication(Dashboard);
+Dashboard.propTypes = {
+  router: PropTypes.object.isRequired
+};
+
+export default HocAuthentication(withRouter(Dashboard));

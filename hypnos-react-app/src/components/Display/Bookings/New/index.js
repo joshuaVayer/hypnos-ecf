@@ -22,7 +22,7 @@ const BookingNew = props => {
           </div>
         </div>
       </div>
-      <RoomBooker {...props} />
+      <RoomBooker key={1} {...props} />
     </section>
   );
 };

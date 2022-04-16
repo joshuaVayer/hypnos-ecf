@@ -31,6 +31,7 @@ class RoomBookerForm extends React.Component {
     this.handleOnSubmit = this.handleOnSubmit.bind(this);
     this.handleRoomChange = this.handleRoomChange.bind(this);
     this.handleFacilityChange = this.handleFacilityChange.bind(this);
+    this.handleFacilityChange = this.handleFacilityChange.bind(this);
   }
 
   componentDidMount() {
@@ -64,7 +65,11 @@ class RoomBookerForm extends React.Component {
         Promise.all(promises).then(roomOptions => {
           this.setState({
             roomOptions,
-            room: roomOptions ? roomOptions[0] : {}
+            room:
+              this.props.room &&
+              this.props.room.facility === this.state.facility._id
+                ? this.props.room
+                : roomOptions[0] || {}
           });
         });
       }
@@ -110,6 +115,19 @@ class RoomBookerForm extends React.Component {
     this.setState({ room });
   }
 
+  handleGoToBooking(e) {
+    e.preventDefault();
+    localStorage.setItem("target", "/dashboard/new-booking");
+    localStorage.setItem("facility", JSON.stringify(this.state.facility));
+    localStorage.setItem("room", JSON.stringify(this.state.room));
+    localStorage.setItem(
+      "startingDate",
+      JSON.stringify(this.props.startingDate)
+    );
+    localStorage.setItem("endingDate", JSON.stringify(this.props.endingDate));
+    this.props.router.navigate(`/dashboard/new-booking`);
+  }
+
   isRoomFree() {
     const { startingDate, endingDate } = this.props;
     const { room } = this.state;
@@ -146,8 +164,7 @@ class RoomBookerForm extends React.Component {
 
   render() {
     const { facility, facilitiesOptions, room, roomOptions } = this.state;
-    const { noFacilityUpdate, shouldRedirect, router } = this.props;
-    const { navigate } = router;
+    const { noFacilityUpdate, shouldRedirect } = this.props;
 
     return (
       <Form onSubmit={this.handleOnSubmit} ref={c => (this.form = c)}>
@@ -158,7 +175,7 @@ class RoomBookerForm extends React.Component {
           >
             {i18next.t("booking.select_facility")}
           </label>
-          <div className="mt-1 sm:mt-0 sm:col-span-1">
+          <div className="mt-1 col-span-2 sm:mt-0 lg:col-span-1">
             <Select
               name="facility"
               disabled={noFacilityUpdate}
@@ -184,11 +201,11 @@ class RoomBookerForm extends React.Component {
               >
                 {i18next.t("booking.select_room")}
               </label>
-              <div className="mt-1 sm:mt-0 sm:col-span-1">
+              <div className="mt-1 col-span-2 sm:mt-0 lg:col-span-1">
                 <Select
                   name="room"
                   className={formStyle.input}
-                  value={(room && room._id) || ""}
+                  value={room && room._id ? room._id : ""}
                   onChange={this.handleRoomChange}
                   validations={[required]}
                 >
@@ -212,7 +229,7 @@ class RoomBookerForm extends React.Component {
                   {shouldRedirect ? (
                     <div className="mt-1 sm:mt-0 sm:col-span-1">
                       <ButtonPrimary
-                        onClick={() => navigate("/dashboard/book")}
+                        onClick={this.handleGoToBooking.bind(this)}
                       >
                         {i18next.t("booking.go_to_booking")}
                       </ButtonPrimary>

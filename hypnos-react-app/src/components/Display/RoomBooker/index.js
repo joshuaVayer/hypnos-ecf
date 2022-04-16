@@ -7,22 +7,19 @@ import RoomBookerForm from "./form";
 import PickerDate from "@Controls/Picker/Date";
 
 const RoomBooker = ({ facility, room, noFacilityUpdate, shouldRedirect }) => {
-  const [selectedFacility, setSelectedFacility] = React.useState(facility);
-  const [selectedRoom, setSelectedRoom] = React.useState(room);
-  const [endingDate, setEndingDate] = React.useState(tomorrow);
-  const [startingDate, setStartingDate] = React.useState(tomorrow);
+  const storedFacility = JSON.parse(localStorage.getItem("facility"));
+  const storedRoom = JSON.parse(localStorage.getItem("room"));
+  const storedStartDate = JSON.parse(localStorage.getItem("startingDate"));
+  const storedEndDate = JSON.parse(localStorage.getItem("endingDate"));
+  const storageKeys = ["facility", "room", "endingDate", "startingDate"];
+  storageKeys.forEach(key => localStorage.removeItem(key));
 
-  const fetchStorage = () => {
-    const storage = JSON.parse(localStorage.getItem("booking"));
-    if (storage) {
-      setSelectedFacility(storage.facility);
-      setSelectedRoom(storage.room);
-      setStartingDate(storage.startingDate);
-      setEndingDate(storage.endingDate);
-    }
-  };
-
-  React.useEffect(fetchStorage, []);
+  const [endingDate, setEndingDate] = React.useState(
+    storedStartDate ? new Date(storedStartDate) : tomorrow
+  );
+  const [startingDate, setStartingDate] = React.useState(
+    storedEndDate ? new Date(storedEndDate) : tomorrow
+  );
 
   const handleSelectDate = date => {
     if (areSameDay(date, startingDate)) {
@@ -46,8 +43,8 @@ const RoomBooker = ({ facility, room, noFacilityUpdate, shouldRedirect }) => {
     <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 md:gap-8">
       <div className="col-span-1 sm:col-span-2">
         <RoomBookerForm
-          facility={selectedFacility}
-          room={selectedRoom}
+          facility={storedFacility || facility}
+          room={storedRoom || room}
           startingDate={startingDate}
           endingDate={endingDate || startingDate}
           noFacilityUpdate={noFacilityUpdate}
