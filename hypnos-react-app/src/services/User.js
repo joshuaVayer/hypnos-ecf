@@ -15,7 +15,7 @@ class UserService {
         return updatedUser;
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -28,7 +28,7 @@ class UserService {
         return response.data;
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   }
 
@@ -41,7 +41,7 @@ class UserService {
         return response.data;
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
       });
   }
 }

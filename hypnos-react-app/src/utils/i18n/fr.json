@@ -40,7 +40,12 @@
   "all_facilities": "Tous les établissements,",
   "facilities_card_description": "Créez ou modifiez les établissements.",
   "users": "Utilisateurs",
-  "bookings": "Réservations",
+  "all_bookings": "Réservations",
+  "my_bookings": "Mes réservations",
+  "new_booking": "Nouvelle réservation",
+  "my_profile": "Mon profil",
+  "cant_cancel": "Impossible d'annuler cette réservation.",
+  "contact_facility": "Veuillez contacter l'établissement.",
   "form_submission": "Formulaire de contact",
   "view_profile": "Voir le profil",
   "edit_password": "Modifier le mot de passe",
@@ -77,9 +82,14 @@
   "manager": "Gérant",
   "client": "Client",
   "admin": "Administrateur",
+  "room": "Chambre",
+  "empty_table": "Aucune donnée disponible dans ce tableau",
   "manager_color": "green",
   "admin_color": "red",
   "client_color": "primary",
+  "start_date": "Date de début",
+  "end_date": "Date de fin",
+  "capacity": "Capacité",
   "facility": "Établissement",
   "add_user": "Ajouter un utilisateur",
   "user_new_description": "Créez un nouvel utilisateur.",
@@ -148,12 +158,23 @@
       "submit": "Envoyer"
     }
   },
+  "bookings": {
+    "clients": {
+      "title": "Mes réservations",
+      "description": "Vous pouvez consulter vos réservations.",
+      "current": "En cours",
+      "passed": "Passées",
+      "inactive": "Annulées"
+    }
+  },
   "booking": {
     "select_facility": "Sélectionner un établissement",
     "select_room": "Sélectionner une suite",
     "room_free": "Bonne nouvelle, cette suite est libre !",
     "booked_room": "Cette suite est réservée à ces dates.",
-    "go_to_booking": "Réserver cette suite"
+    "go_to_booking": "Réserver cette suite",
+    "new": "Nouvelle réservation",
+    "new_description": "Créez une nouvelle réservation."
   },
   "book": "Réserver"
 }

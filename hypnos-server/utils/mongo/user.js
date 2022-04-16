@@ -1,7 +1,7 @@
 
 const Room = require("@models/rooms");
 const { User, Role } = require("@models/users");
-const { Booking } = require("@models/bookings");
+const Booking = require("@models/bookings");
 
 const { userIsAdmin } = require("@utils/mongo/admin");
 const { getTokenFromHeaders } = require("@utils/token");
@@ -75,7 +75,7 @@ const isAllowedBookingUser = async (req) => {
 
   const booking = await Booking.findOne({ _id: req.params.id }).populate("user").populate("room");
   if (!booking || !booking.user) return false;
-  if (booking.user.name === "client" && booking.user._id.toString() === token.id) return true;
+  if (user.role.name === "client" && booking.user._id.toString() === token.id.toString()) return true;
 
   // Check if manager is allowed to get this booking
   if (booking.room && booking.room.facility) {

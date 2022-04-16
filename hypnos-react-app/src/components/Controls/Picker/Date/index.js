@@ -117,7 +117,7 @@ const PickerDate = ({ selectedDate, handleSelect, isWindow, timeWindow }) => {
 
 PickerDate.propTypes = {
   days: PropTypes.arrayOf(PropTypes.object),
-  timeWindow: PropTypes.arrayOf(PropTypes.object),
+  timeWindow: PropTypes.arrayOf(PropTypes.any),
   selectedDate: PropTypes.object,
   handleSelect: PropTypes.func,
   isWindow: PropTypes.bool

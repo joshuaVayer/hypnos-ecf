@@ -1,18 +1,35 @@
 import React from "react";
+import i18next from "i18next";
+import PropTypes from "prop-types";
+import withRouter from "@Hoc/Router";
+
+import actions from "../actions";
+import Bookings from "@Display/Bookings";
+import BookingNew from "@Display/Bookings/New";
+import PanelActions from "@Display/Panel/Actions";
 
 class DashboardClient extends React.Component {
-  // WIP
-  componentDidMount() {
-    console.log(this.props);
+  renderDasboardView(view) {
+    if (view === "new-booking") return <BookingNew />;
+    if (view === "bookings") return <Bookings shape="client" />;
   }
 
   render() {
+    const { view } = this.props.router.params;
+
+    if (view) return this.renderDasboardView(view);
+
     return (
-      <div>
-        <h1>Dashboard Client</h1>
-      </div>
+      <section aria-labelledby="quick-links-title">
+        <PanelActions actions={actions(i18next).client} />
+      </section>
     );
   }
 }
 
-export default DashboardClient;
+DashboardClient.propTypes = {
+  user: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
+};
+
+export default withRouter(DashboardClient);

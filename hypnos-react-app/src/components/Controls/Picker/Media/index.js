@@ -31,7 +31,7 @@ class PickerMedia extends React.Component {
           this.setState({ medias });
         });
       } else if (err) {
-        console.log(err);
+        console.error(err);
       }
     });
   }

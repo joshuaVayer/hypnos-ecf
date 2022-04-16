@@ -14,7 +14,35 @@ class BookingService {
         return response.data;
       })
       .catch(error => {
-        console.log(error);
+        console.error(error);
+      });
+  }
+
+  create(booking) {
+    return axios
+      .post(`${API_URL}/bookings`, booking, {
+        headers: authHeader()
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  }
+
+  cancel(id) {
+    return axios
+      .put(
+        `${API_URL}/bookings/${id}`,
+        { active: false },
+        { headers: authHeader() }
+      )
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.error(error);
       });
   }
 }

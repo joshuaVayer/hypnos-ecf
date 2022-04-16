@@ -1,5 +1,7 @@
 import React from "react";
+import i18next from "i18next";
 import PropTypes from "prop-types";
+import { InboxIcon } from "@heroicons/react/outline";
 
 const TableShaped = ({ shape }) => {
   const { cols, lines } = shape;
@@ -18,20 +20,37 @@ const TableShaped = ({ shape }) => {
           ))}
         </tr>
       </thead>
-      <tbody className="divide-y divide-gray-200 bg-white">
-        {lines.map(line => (
-          <tr key={line.key}>
-            {cols.map(col => (
-              <td
-                key={col.key}
-                className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 ${col.contentClassName}`}
-              >
-                {line[col.key]}
-              </td>
-            ))}
+      {lines && lines.length > 0 ? (
+        <tbody className="divide-y divide-gray-200 bg-white">
+          {lines.map(line => (
+            <tr key={line.key}>
+              {cols.map(col => (
+                <td
+                  key={col.key}
+                  className={`whitespace-nowrap px-3 py-4 text-sm text-gray-500 ${col.contentClassName}`}
+                >
+                  {line[col.key]}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      ) : (
+        <tbody>
+          <tr>
+            <td colSpan={cols.length}>
+              <div className="text-center">
+                <div className="w-full flex justify-center align-middle gap-2">
+                  <InboxIcon className="text-gray-400 w-10 text-center" />
+                  <h3 className="mt-2 text-sm font-light text-gray-500">
+                    {i18next.t("empty_table")}
+                  </h3>
+                </div>
+              </div>
+            </td>
           </tr>
-        ))}
-      </tbody>
+        </tbody>
+      )}
     </table>
   );
 };

@@ -4,6 +4,7 @@ import i18next from "i18next";
 import withRouter from "@Hoc/Router";
 import { formStyle, required } from "@Utils/form";
 
+import AuthService from "@Services/Auth";
 import RoomService from "@Services/Room";
 import BookingService from "@Services/Booking";
 import FacilityService from "@Services/Facility";
@@ -13,7 +14,7 @@ import { areSameDay, isAfter, isBefore } from "@Utils/dates";
 import Alert from "@Display/Alert";
 import ButtonPrimary from "@Controls/Buttons/Primary";
 import Form from "react-validation/build/form";
-// import Input from "react-validation/build/input";
+import CheckButton from "react-validation/build/button";
 import Select from "react-validation/build/select";
 
 class RoomBookerForm extends React.Component {
@@ -35,7 +36,7 @@ class RoomBookerForm extends React.Component {
   componentDidMount() {
     FacilityService.getAll().then(facilitiesOptions =>
       this.setState({ facilitiesOptions }, () => {
-        if (!this.state.facility) {
+        if (!this.state.facility || !Object.keys(this.state.facility).length) {
           this.setState(
             { facility: facilitiesOptions[0] },
             this.fetchRelatedRooms
@@ -61,16 +62,38 @@ class RoomBookerForm extends React.Component {
             })
         );
         Promise.all(promises).then(roomOptions => {
-          this.setState({ roomOptions });
+          this.setState({
+            roomOptions,
+            room: roomOptions ? roomOptions[0] : {}
+          });
         });
       }
     );
   }
 
-  handleOnSubmit() {
-    // WIP
-    console.log(this.form);
-    console.log("submitted");
+  handleOnSubmit(e) {
+    e.preventDefault();
+    this.form.validateAll();
+
+    const { startingDate, endingDate } = this.props;
+    const { room } = this.state;
+
+    const { user } = AuthService.getCurrentUser();
+
+    if (this.checkBtn.context._errors.length === 0 && this.isRoomFree()) {
+      const newBooking = {
+        endDate: endingDate,
+        startDate: startingDate,
+        room: room._id,
+        user: user._id
+      };
+
+      BookingService.create(newBooking)
+        .then(() => {
+          this.props.router.navigate("/dashboard/bookings");
+        })
+        .catch(console.error);
+    }
   }
 
   handleFacilityChange(e) {
@@ -89,7 +112,6 @@ class RoomBookerForm extends React.Component {
 
   isRoomFree() {
     const { startingDate, endingDate } = this.props;
-    console.log(startingDate, endingDate);
     const { room } = this.state;
     const { bookings } = room;
 
@@ -154,56 +176,69 @@ class RoomBookerForm extends React.Component {
           </div>
         </div>
         {facility && roomOptions.length > 0 && (
-          <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5 mb-4">
-            <label
-              htmlFor="room"
-              className="block text-sm font-medium text-gray-700"
-            >
-              {i18next.t("booking.select_room")}
-            </label>
-            <div className="mt-1 sm:mt-0 sm:col-span-1">
-              <Select
-                name="room"
-                className={formStyle.input}
-                value={(room && room._id) || ""}
-                onChange={this.handleRoomChange}
-                validations={[required]}
+          <>
+            <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5 mb-4">
+              <label
+                htmlFor="room"
+                className="block text-sm font-medium text-gray-700"
               >
-                {roomOptions.map(room => (
-                  <option key={room._id} value={room._id}>
-                    {room.roomNumber}
-                  </option>
-                ))}
-              </Select>
-            </div>
-          </div>
-        )}
-        <div className="sm:grid sm:grid-cols-3 gap-4">
-          {this.isRoomFree() ? (
-            <React.Fragment>
-              <div className="mt-1 sm:mt-0 sm:col-span-3">
-                <Alert type="success" text={i18next.t("booking.room_free")} />
+                {i18next.t("booking.select_room")}
+              </label>
+              <div className="mt-1 sm:mt-0 sm:col-span-1">
+                <Select
+                  name="room"
+                  className={formStyle.input}
+                  value={(room && room._id) || ""}
+                  onChange={this.handleRoomChange}
+                  validations={[required]}
+                >
+                  {roomOptions.map(room => (
+                    <option key={room._id} value={room._id}>
+                      {room.roomNumber}
+                    </option>
+                  ))}
+                </Select>
               </div>
-              {shouldRedirect ? (
-                <div className="mt-1 sm:mt-0 sm:col-span-1">
-                  <ButtonPrimary onClick={() => navigate("/dashboard/book")}>
-                    {i18next.t("booking.go_to_booking")}
-                  </ButtonPrimary>
-                </div>
+            </div>
+            <div className="sm:grid sm:grid-cols-3 gap-4">
+              {this.isRoomFree() ? (
+                <React.Fragment>
+                  <div className="mt-1 sm:mt-0 sm:col-span-3">
+                    <Alert
+                      type="success"
+                      text={i18next.t("booking.room_free")}
+                    />
+                  </div>
+                  {shouldRedirect ? (
+                    <div className="mt-1 sm:mt-0 sm:col-span-1">
+                      <ButtonPrimary
+                        onClick={() => navigate("/dashboard/book")}
+                      >
+                        {i18next.t("booking.go_to_booking")}
+                      </ButtonPrimary>
+                    </div>
+                  ) : (
+                    <div className="mt-1 sm:mt-0 sm:col-span-1">
+                      <ButtonPrimary type="submit">
+                        {i18next.t("book")}
+                      </ButtonPrimary>
+                    </div>
+                  )}
+                </React.Fragment>
               ) : (
-                <div className="mt-1 sm:mt-0 sm:col-span-1">
-                  <ButtonPrimary type="submit">
-                    {i18next.t("book")}
-                  </ButtonPrimary>
+                <div className="mt-1 sm:mt-0 sm:col-span-3">
+                  <Alert type="error" text={i18next.t("booking.booked_room")} />
                 </div>
               )}
-            </React.Fragment>
-          ) : (
-            <div className="mt-1 sm:mt-0 sm:col-span-3">
-              <Alert type="error" text={i18next.t("booking.booked_room")} />
             </div>
-          )}
-        </div>
+          </>
+        )}
+        <CheckButton
+          style={{ display: "none" }}
+          ref={c => {
+            this.checkBtn = c;
+          }}
+        />
       </Form>
     );
   }
@@ -214,8 +249,8 @@ RoomBookerForm.propTypes = {
   facility: PropTypes.object,
   room: PropTypes.object,
   noFacilityUpdate: PropTypes.bool,
-  startingDate: PropTypes.object,
-  endingDate: PropTypes.object,
+  startingDate: PropTypes.any,
+  endingDate: PropTypes.any,
   shouldRedirect: PropTypes.bool
 };
 

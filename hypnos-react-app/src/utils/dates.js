@@ -2,6 +2,14 @@ import i18next from "i18next";
 
 export const today = new Date();
 
+export const todayPlus = days => {
+  const date = new Date(today);
+  date.setDate(date.getDate() + days);
+  return date;
+};
+
+export const tomorrow = new Date().setDate(today.getDate() + 1);
+
 export const isMonday = (date = today) => date.getDay() === 1;
 
 export const isSunday = (date = today) => date.getDay() === 0;

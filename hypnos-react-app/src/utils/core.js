@@ -11,3 +11,5 @@ export const isNotEmpty = value => {
 
   return false;
 };
+
+export const classNames = (...classes) => classes.filter(Boolean).join(" ");

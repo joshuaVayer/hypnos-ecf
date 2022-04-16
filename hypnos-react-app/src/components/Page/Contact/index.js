@@ -46,8 +46,7 @@ const PageContact = () => {
       };
 
       ContactService.submit(submissionObject)
-        .then(res => {
-          console.log(res);
+        .then(() => {
           setIsSubmitted(true);
         })
         .catch(err => {
