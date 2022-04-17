@@ -45,6 +45,43 @@ const actions = i18next => ({
       iconBackground: "bg-primary-600"
     }
   ],
+  manager: [
+    {
+      icon: OfficeBuildingIcon,
+      name: i18next.t("rooms"),
+      href: "/dashboard/rooms",
+      content: i18next.t("rooms_card_description"),
+      iconForeground: "text-white",
+      iconBackground: "bg-primary-600"
+    },
+    {
+      icon: CalendarIcon,
+      name: i18next.t("all_bookings"),
+      href: "/dashboard/bookings",
+      content:
+        "Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.",
+      iconForeground: "text-white",
+      iconBackground: "bg-primary-600"
+    },
+    {
+      icon: UserIcon,
+      name: i18next.t("my_profile"),
+      href: "/profile",
+      content:
+        "Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.",
+      iconForeground: "text-white",
+      iconBackground: "bg-primary-600"
+    },
+    {
+      icon: PencilAltIcon,
+      name: i18next.t("need_help"),
+      href: "/contact",
+      content:
+        "Doloribus dolores nostrum quia qui natus officia quod et dolorem. Sit repellendus qui ut at blanditiis et quo et molestiae.",
+      iconForeground: "text-white",
+      iconBackground: "bg-primary-600"
+    }
+  ],
   client: [
     {
       icon: CalendarIcon,

@@ -1,18 +1,41 @@
 import React from "react";
+import i18next from "i18next";
+import PropTypes from "prop-types";
+import withRouter from "@Hoc/Router";
+
+import actions from "../actions";
+import Bookings from "@Display/Bookings";
+import Facilities from "@Display/Facilities";
+import PanelActions from "@Display/Panel/Actions";
 
 class DashboardManager extends React.Component {
-  // WIP
-  componentDidMount() {
-    console.log(this.props);
+  renderDasboardView(view) {
+    const allowedFacilities = this.props.user.user.facilities;
+    if (view === "facilities") {
+      return (
+        <Facilities allowedFacilities={allowedFacilities} canCreate={false} />
+      );
+    }
+    if (view === "bookings")
+      return <Bookings allowedFacilities={allowedFacilities} shape="staff" />;
   }
 
   render() {
+    const { view } = this.props.router.params;
+
+    if (view) return this.renderDasboardView(view);
+
     return (
-      <div>
-        <h1>Dashboard Manager</h1>
-      </div>
+      <section aria-labelledby="quick-links-title">
+        <PanelActions actions={actions(i18next).manager} />
+      </section>
     );
   }
 }
 
-export default DashboardManager;
+DashboardManager.propTypes = {
+  user: PropTypes.object.isRequired,
+  router: PropTypes.object.isRequired
+};
+
+export default withRouter(DashboardManager);

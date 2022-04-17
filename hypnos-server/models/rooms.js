@@ -8,6 +8,7 @@ const RoomSchema = new Schema({
   price: { type: Number, required: true, default: 0 },
   coverImage: { type: String, default: "" },
   images: [{ type: String, default: [] }],
+  externalLink: { type: String, default: "" },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });

@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import CardFacility from "@Controls/Card/Facility";
 import ButtonPrimary from "@Controls/Buttons/Primary";
 
-const FacilityList = ({ facilities }) => {
+const FacilityList = ({ facilities, canCreate }) => {
   return (
     <div>
       <div className="flex flex-row justify-between my-4">
@@ -20,18 +20,20 @@ const FacilityList = ({ facilities }) => {
             {i18next.t("facilities_card_description")}
           </p>
         </div>
-        <div className="self-center">
-          <Link to="/dashboard/facilities/new">
-            <ButtonPrimary>
-              <div className="flex flex-row align-bottom text-sm gap-2 mx-2">
-                <PlusIcon className="w-4" />
-                <p className="font-medium truncate">
-                  {i18next.t("add_facility")}
-                </p>
-              </div>
-            </ButtonPrimary>
-          </Link>
-        </div>
+        {canCreate && (
+          <div className="self-center">
+            <Link to="/dashboard/facilities/new">
+              <ButtonPrimary>
+                <div className="flex flex-row align-bottom text-sm gap-2 mx-2">
+                  <PlusIcon className="w-4" />
+                  <p className="font-medium truncate">
+                    {i18next.t("add_facility")}
+                  </p>
+                </div>
+              </ButtonPrimary>
+            </Link>
+          </div>
+        )}
       </div>
       <ul
         role="list"
@@ -62,7 +64,12 @@ FacilityList.propTypes = {
       updatedAt: PropTypes.string,
       imageUrl: PropTypes.string
     })
-  ).isRequired
+  ).isRequired,
+  canCreate: PropTypes.bool
+};
+
+FacilityList.defaultProps = {
+  canCreate: true
 };
 
 export default FacilityList;

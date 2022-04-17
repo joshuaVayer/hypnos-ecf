@@ -29,8 +29,8 @@ const Line = ({ label, value, action, sensitive, type }) => (
 
 Line.propTypes = {
   type: PropTypes.string,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  value: PropTypes.any,
   sensitive: PropTypes.bool,
   action: PropTypes.element
 };

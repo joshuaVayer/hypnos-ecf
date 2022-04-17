@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import i18next from "i18next";
 
 import ButtonPrimary from "@Controls/Buttons/Primary";
-
 import RoomService from "@Services/Room";
 import BookingService from "@Services/Booking";
 import RoomBooker from "@Display/RoomBooker";

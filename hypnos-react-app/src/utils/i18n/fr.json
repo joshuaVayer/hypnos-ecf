@@ -110,6 +110,15 @@
   "contact_us": "Contactez-nous",
   "book_now": "Réserver maintenant",
   "our_facilities": "Nos établissements",
+  "new_user_warning": "Information importante",
+  "new_user_warning_description": "Le compte que vous allez créer contiendra un mot de passe par défaut. Veuillez informer l'utilisateur de cette information et lui demander de chnager le mote de passe. Le mot de passe par défaut est \"Hypnos@1234\".",
+  "menu": {
+    "home": "Accueil",
+    "facilities": "Toutes les établissements",
+    "contact": "Contact",
+    "login": "Connexion",
+    "signup": "Inscription"
+  },
   "date": {
     "months": [
       "Janvier",

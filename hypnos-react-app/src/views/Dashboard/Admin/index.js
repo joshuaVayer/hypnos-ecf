@@ -3,23 +3,25 @@ import i18next from "i18next";
 import PropTypes from "prop-types";
 import withRouter from "@Hoc/Router";
 
-import actions from "../actions";
+import Forms from "@Display/Forms";
 import Users from "@Display/Users";
 import Bookings from "@Display/Bookings";
 import Facilities from "@Display/Facilities";
 import PanelActions from "@Display/Panel/Actions";
+
+import actions from "../actions";
+
 class DashboardAdmin extends React.Component {
   constructor(props) {
     super(props);
   }
 
   renderDasboardView(view) {
-    if (view === "facilities") return <Facilities />;
     if (view === "users") return <Users />;
-    if (view === "bookings") return <Bookings />;
-    if (view === "contacts") {
-      return <h1> Form Submissions </h1>;
-    }
+    if (view === "contacts") return <Forms />;
+    if (view === "facilities") return <Facilities />;
+    if (view === "bookings") return <Bookings shape="staff" />;
+
     return null;
   }
 

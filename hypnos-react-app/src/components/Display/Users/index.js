@@ -5,6 +5,7 @@ import withRouter from "@Hoc/Router";
 import UserService from "@Services/User";
 import FacilityService from "@Services/Facility";
 
+import UserDetails from "./Details";
 import UserNew from "./New";
 import UserList from "./List";
 
@@ -40,8 +41,8 @@ const Users = ({ router }) => {
     if (id === "new") return <UserNew onCreateUser={fetchUsers} />;
     if (id) {
       const currentUser = users.find(user => String(user._id) === String(id));
-      // TODO: Add user edit page
-      return <p>{JSON.stringify(currentUser)}</p>;
+      if (!currentUser) return null;
+      return <UserDetails user={currentUser} onUserUpdate={fetchUsers} />;
     }
     return <UserList users={users} />;
   };

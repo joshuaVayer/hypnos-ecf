@@ -25,7 +25,7 @@ Table.propTypes = {
   lines: PropTypes.arrayOf(
     PropTypes.shape({
       label: PropTypes.string,
-      value: PropTypes.string,
+      value: PropTypes.any,
       action: PropTypes.element
     })
   )

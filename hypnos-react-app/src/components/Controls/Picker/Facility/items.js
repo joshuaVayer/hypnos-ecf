@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { CheckIcon } from "@heroicons/react/solid";
 import { RadioGroup } from "@headlessui/react";
 
-const FacilityPickerItem = ({ facility, onClick }) => {
+const FacilityPickerItem = ({ facility, onClick, isActive }) => {
   if (!facility) return null;
-  const [item, setItem] = React.useState();
+  const [item, setItem] = React.useState(isActive ? facility._id : null);
 
   const handleOnClick = () => {
     const value = item ? null : facility._id;
@@ -67,12 +67,14 @@ const FacilityPickerItem = ({ facility, onClick }) => {
 
 FacilityPickerItem.propTypes = {
   facility: PropTypes.object,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  isActive: PropTypes.bool
 };
 
 FacilityPickerItem.defaultProps = {
   facility: null,
-  onClick: () => {}
+  onClick: () => {},
+  isActive: false
 };
 
 export default FacilityPickerItem;

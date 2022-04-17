@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 import PageHome from "@Page/Home";
 import ForbidenPage from "@Page/Forbiden";
-import Header from "@Controls/Header";
+import Header from "@Display/Header/Main";
 import PageFacilityDetails from "@Page/FacilityDetails";
 import PageFacilities from "@Page/Facilities";
 import PageContact from "@Page/Contact";

@@ -5,14 +5,17 @@ import authHeader from "./Auth/Header";
 const API_URL = process.env.REACT_APP_API_URL;
 
 class UserService {
-  update(user) {
+  update(user, refresh) {
     return axios
       .put(`${API_URL}/users/${user._id}`, user, {
         headers: authHeader()
       })
       .then(response => {
-        const updatedUser = AuthService.update(response.data);
-        return updatedUser;
+        if (refresh) {
+          const updatedUser = AuthService.update(response.data);
+          return updatedUser;
+        }
+        return response.data;
       })
       .catch(error => {
         console.error(error);

@@ -10,6 +10,7 @@ import TextArea from "react-validation/build/textarea";
 import CheckButton from "react-validation/build/button";
 import { ArrowNarrowLeftIcon, PlusIcon } from "@heroicons/react/outline";
 
+import RequireAuth from "@Hoc/Auth";
 import { required, formStyle } from "@Utils/form";
 
 import ModalMedia from "@Display/Modal/Media";
@@ -282,4 +283,4 @@ FacilityNew.propTypes = {
   onCreateFacility: PropTypes.func.isRequired
 };
 
-export default FacilityNew;
+export default RequireAuth(FacilityNew, ["admin"]);

@@ -8,7 +8,7 @@ import FacilityNew from "./New";
 import FacilitiesList from "./List";
 import FacilityDetails from "./Details";
 
-const Facilities = ({ router }) => {
+const Facilities = ({ router, allowedFacilities, canCreate }) => {
   const { id } = router.params;
   const [facilities, setFacilities] = React.useState([]);
 
@@ -17,35 +17,36 @@ const Facilities = ({ router }) => {
 
     const facility = { _id: id, [fieldName]: newValue };
 
-    FacilityService.update(facility).then(() => {
-      FacilityService.getAll().then(facilities => {
-        setFacilities(facilities);
-      });
-    });
+    FacilityService.update(facility).then(() => fetchFacilities);
   };
+
+  const fetchFacilities = (callback = () => {}) =>
+    FacilityService.getAll().then(facilities => {
+      if (allowedFacilities) {
+        setFacilities(
+          facilities.filter(f => allowedFacilities.includes(f._id))
+        );
+        callback();
+        return;
+      }
+      setFacilities(facilities);
+      callback();
+    });
 
   const handleRemoveFacility = () => {
     if (!id || id === "new") return;
 
     FacilityService.remove(id).then(() => {
-      FacilityService.getAll().then(facilities => {
-        setFacilities(facilities);
-        router.navigate("/dashboard/facilities");
-      });
+      fetchFacilities(router.navigate("/dashboard/facilities"));
     });
   };
 
   const onCreateFacility = () => {
-    FacilityService.getAll().then(facilities => {
-      setFacilities(facilities);
-      router.navigate("/dashboard/facilities");
-    });
+    fetchFacilities(router.navigate("/dashboard/facilities"));
   };
 
   React.useEffect(() => {
-    if (!facilities.length) {
-      FacilityService.getAll().then(setFacilities);
-    }
+    if (!facilities.length) fetchFacilities();
   }, [facilities]);
 
   if (!facilities.length) return;
@@ -65,7 +66,7 @@ const Facilities = ({ router }) => {
         />
       );
     }
-    return <FacilitiesList facilities={facilities} />;
+    return <FacilitiesList canCreate={canCreate} facilities={facilities} />;
   };
 
   return <section>{getPageContent()}</section>;
@@ -77,7 +78,14 @@ Facilities.propTypes = {
     params: PropTypes.shape({
       id: PropTypes.string
     })
-  }).isRequired
+  }).isRequired,
+  allowedFacilities: PropTypes.arrayOf(PropTypes.string),
+  canCreate: PropTypes.bool
+};
+
+Facilities.defaultProps = {
+  allowedFacilities: null,
+  canCreate: false
 };
 
 export default withRouter(Facilities);

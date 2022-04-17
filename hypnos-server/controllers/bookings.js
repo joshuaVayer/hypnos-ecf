@@ -1,3 +1,4 @@
+const Room = require("@models/rooms");
 const Bookings = require("@models/bookings");
 
 const logger = require("@utils/logger");
@@ -57,8 +58,13 @@ module.exports = {
 
   // Unprotected endpoint, should not reveal any personal information
   getAll: async (req, res) => {
-    const validParams = ["room", "user", "active", "startDate", "endDate"];
+    const validParams = ["room", "user", "active", "startDate", "endDate", "facility"];
     const { query } = req;
+    if (query && query.facility) {
+      const rooms = await Room.find({ facility: query.facility });
+      query.room = rooms.map(room => room._id);
+    }
+    console.log(query);
     const validatedQuery = Object.keys(query).reduce((acc, key) => {
       if (validParams.includes(key)) {
         acc[key] = query[key];

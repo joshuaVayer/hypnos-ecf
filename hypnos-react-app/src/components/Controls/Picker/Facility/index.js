@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 
 import FacilityPickerItem from "./items";
 
-const PickerFacility = ({ facilities, onClick }) => {
-  const [selectedFacilities, setSelectedFacilities] = React.useState([]);
+const PickerFacility = ({ facilities, onClick, startingFacilities }) => {
+  const [selectedFacilities, setSelectedFacilities] =
+    React.useState(startingFacilities);
 
   const handleOnClick = facility => {
     const newSelectedFacilities = selectedFacilities.slice();
@@ -21,6 +22,7 @@ const PickerFacility = ({ facilities, onClick }) => {
     <div className="grid sm:grid-cols-2 gap-4 sm:items-start mb-4">
       {facilities.map(facility => (
         <FacilityPickerItem
+          isActive={selectedFacilities.includes(facility._id)}
           key={facility._id}
           facility={facility}
           onClick={handleOnClick}
@@ -32,11 +34,13 @@ const PickerFacility = ({ facilities, onClick }) => {
 
 PickerFacility.propTypes = {
   facilities: PropTypes.array.isRequired,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  startingFacilities: PropTypes.array
 };
 
 PickerFacility.defaultProps = {
-  onClick: () => {}
+  onClick: () => {},
+  startingFacilities: []
 };
 
 export default PickerFacility;
