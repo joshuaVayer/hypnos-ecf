@@ -16,6 +16,19 @@ class ContactService {
         throw error;
       });
   }
+
+  getAll() {
+    return axios
+      .get(`${API_URL}/formSubmissions`, {
+        headers: authHeader()
+      })
+      .then(response => {
+        return response.data;
+      })
+      .catch(error => {
+        throw error;
+      });
+  }
 }
 
 export default new ContactService();
