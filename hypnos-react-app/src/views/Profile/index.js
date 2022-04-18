@@ -1,5 +1,6 @@
 import React from "react";
 import i18next from "i18next";
+import PropTypes from "prop-types";
 import AuthService from "@Services/Auth";
 import UserService from "@Services/User";
 
@@ -22,8 +23,11 @@ class Profile extends React.Component {
     this.handleUpdateLine = this.handleUpdateLine.bind(this);
     this.handleCancelEditLine = this.handleCancelEditLine.bind(this);
 
+    const { user } = AuthService.getCurrentUser() || {};
+    user.role = { name: this.props.role, _id: user.role };
+
     this.state = {
-      user: AuthService.getCurrentUser(),
+      user,
       lines: []
     };
   }
@@ -34,14 +38,10 @@ class Profile extends React.Component {
 
   initTable(callback = () => {}) {
     const { user } = this.state;
-    const { user: userDetails } = user;
 
     if (!user) return;
 
-    this.setState(
-      { lines: tableLines(userDetails, this.handleEditLine) },
-      callback
-    );
+    this.setState({ lines: tableLines(user, this.handleEditLine) }, callback);
   }
 
   handleEditLine(id) {
@@ -67,15 +67,17 @@ class Profile extends React.Component {
 
   handleUpdateLine(key, newValue) {
     const { user } = this.state;
-    const { user: userDetails } = user;
 
     const newUser = {
-      ...userDetails,
+      ...user,
       [key]: newValue
     };
 
     UserService.update(newUser).then(user => {
-      this.setState({ user }, this.initTable);
+      this.setState(
+        { user: { ...user, role: this.state.user.role } },
+        this.initTable
+      );
     });
   }
 
@@ -88,16 +90,15 @@ class Profile extends React.Component {
     const { user, lines } = this.state;
 
     if (!user) return null;
-    const { user: userDetails } = user;
 
     return (
       <div className="min-h-full">
-        <HeaderDashboard user={{ ...userDetails, imageUrl: USER_IMG }} />
+        <HeaderDashboard user={{ ...user, imageUrl: USER_IMG }} />
         <main className="-mt-20 pb-8">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-1 lg:gap-8">
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
-                <PanelWelcome user={{ ...userDetails, imageUrl: USER_IMG }} />
+                <PanelWelcome user={{ ...user, imageUrl: USER_IMG }} />
                 {lines && lines.length > 0 && (
                   <React.Fragment>
                     <div className="mt-6">
@@ -120,5 +121,9 @@ class Profile extends React.Component {
     );
   }
 }
+
+Profile.propTypes = {
+  role: PropTypes.string
+};
 
 export default RequireAuth(Profile);

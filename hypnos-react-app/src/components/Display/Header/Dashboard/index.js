@@ -201,7 +201,7 @@ HeaderDashboard.propTypes = {
     email: PropTypes.string,
     username: PropTypes.string,
     imageUrl: PropTypes.string,
-    role: PropTypes.string
+    role: PropTypes.object
   }).isRequired
 };
 

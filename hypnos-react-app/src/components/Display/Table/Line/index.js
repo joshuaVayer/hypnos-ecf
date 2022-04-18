@@ -8,8 +8,10 @@ const Line = ({ label, value, action, sensitive, type }) => (
     <dt className="text-sm font-medium text-gray-500">{label}</dt>
     <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
       {type === "mediaPicker" ? (
-        <div className="h-auto w-60 list-none">
-          <CardMedia media={{ path: value }} />
+        <div className="flex-grow">
+          <div className="h-auto w-60 list-none">
+            <CardMedia media={{ path: value }} />
+          </div>
         </div>
       ) : (
         <React.Fragment>
@@ -18,7 +20,9 @@ const Line = ({ label, value, action, sensitive, type }) => (
               <span className="text-gray-500 text-3xl">..............</span>
             </div>
           ) : (
-            <span className="flex-grow">{value}</span>
+            <div className="flex-grow text-ellipsis overflow-hidden">
+              <p>{value}</p>
+            </div>
           )}
         </React.Fragment>
       )}

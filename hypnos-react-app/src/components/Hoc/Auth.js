@@ -12,18 +12,14 @@ const RequireAuth = (
       super(props);
       const currentUser = AuthService.getCurrentUser();
 
-      // Should Check token validity
-
       this.checkIfAllowed = this.checkIfAllowed.bind(this);
-      let isAllowed = "pending";
-      const everyOneAllowed = ["admin", "manager", "client"].every(role =>
-        allowedRoles.includes(role)
-      );
-      everyOneAllowed ? (isAllowed = true) : this.checkIfAllowed();
+
+      this.checkIfAllowed();
 
       this.state = {
         isAuthenticated: currentUser && currentUser.token !== null,
-        isAllowed
+        isAllowed: "pending",
+        role: null
       };
     }
 
@@ -32,7 +28,7 @@ const RequireAuth = (
         if (data.role) {
           const { role } = data;
           if (allowedRoles.includes(role.name)) {
-            this.setState({ isAllowed: true });
+            this.setState({ isAllowed: true, role: role.name });
           } else {
             this.setState({ isAllowed: false });
           }
@@ -41,13 +37,13 @@ const RequireAuth = (
     }
 
     render() {
-      const { isAuthenticated } = this.state;
+      const { isAuthenticated, role } = this.state;
       if (!isAuthenticated) return <Navigate to="/login" />;
       if (this.state.isAllowed === "pending")
         return <div>Checking your rights...</div>;
       if (!this.state.isAllowed) return <Navigate to="/forbidden" />;
 
-      return <Component {...this.props} />;
+      return <Component {...this.props} role={role} />;
     }
   };
 };

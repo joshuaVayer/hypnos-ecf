@@ -4,20 +4,22 @@ import PropTypes from "prop-types";
 import withRouter from "@Hoc/Router";
 
 import actions from "../actions";
+import Rooms from "@Display/Rooms";
 import Bookings from "@Display/Bookings";
 import Facilities from "@Display/Facilities";
 import PanelActions from "@Display/Panel/Actions";
 
 class DashboardManager extends React.Component {
   renderDasboardView(view) {
-    const allowedFacilities = this.props.user.user.facilities;
-    if (view === "facilities") {
+    const allowedFacilities = this.props.user.facilities;
+    if (view === "facilities")
       return (
         <Facilities allowedFacilities={allowedFacilities} canCreate={false} />
       );
-    }
     if (view === "bookings")
       return <Bookings allowedFacilities={allowedFacilities} shape="staff" />;
+    if (view === "rooms")
+      return <Rooms allowedFacilities={allowedFacilities} />;
   }
 
   render() {

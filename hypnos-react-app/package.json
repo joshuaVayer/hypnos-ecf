@@ -60,7 +60,6 @@
     "eslint-plugin-react": "^7.29.4",
     "prettier": "2.6.1"
   },
-
   "engines": {
     "node": ">=16.13.0"
   }

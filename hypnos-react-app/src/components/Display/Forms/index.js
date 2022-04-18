@@ -32,6 +32,7 @@ const Forms = () => {
       }
     ],
     lines: formSubmissions.map(submission => ({
+      key: submission._id,
       date: toFriendlyString(new Date(submission.createdAt)),
       name: submission.name + " " + submission.surname,
       email: submission.email,

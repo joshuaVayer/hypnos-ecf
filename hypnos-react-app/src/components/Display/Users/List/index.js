@@ -40,6 +40,7 @@ const UserList = ({ users }) => {
       }
     ],
     lines: users.map(user => ({
+      key: user._id,
       picture: (
         <div className="flex items-center">
           <div className="h-10 w-10 flex-shrink-0">

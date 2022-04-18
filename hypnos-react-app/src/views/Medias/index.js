@@ -1,7 +1,8 @@
 import React from "react";
 import i18next from "i18next";
+import PropTypes from "prop-types";
+
 import AuthService from "@Services/Auth";
-// import MediaService from "@Services/Media";
 
 import RequireAuth from "@Hoc/Auth";
 import Footer from "@Display/Footer";
@@ -18,9 +19,10 @@ class Medias extends React.Component {
 
     this.onSelectMedia = this.onSelectMedia.bind(this);
 
-    this.state = {
-      user: AuthService.getCurrentUser()
-    };
+    const { user } = AuthService.getCurrentUser() || {};
+    user.role = { name: this.props.role, _id: user.role };
+
+    this.state = { user };
   }
 
   onSelectMedia(media) {
@@ -33,16 +35,15 @@ class Medias extends React.Component {
     const { user } = this.state;
 
     if (!user) return null;
-    const { user: userDetails } = user;
 
     return (
       <div className="min-h-full">
-        <HeaderDashboard user={{ ...userDetails, imageUrl: USER_IMG }} />
+        <HeaderDashboard user={{ ...user, imageUrl: USER_IMG }} />
         <main className="-mt-20 pb-8">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-1 lg:gap-8">
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
-                <PanelWelcome user={{ ...userDetails, imageUrl: USER_IMG }} />
+                <PanelWelcome user={{ ...user, imageUrl: USER_IMG }} />
                 <div className="my-2">
                   <h3 className="text-lg leading-6 font-medium text-gray-900">
                     {i18next.t("all_medias")}
@@ -61,5 +62,9 @@ class Medias extends React.Component {
     );
   }
 }
+
+Medias.propTypes = {
+  role: PropTypes.string
+};
 
 export default RequireAuth(Medias, ["manager", "admin"]);

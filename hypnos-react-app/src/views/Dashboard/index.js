@@ -17,19 +17,10 @@ const USER_IMG = `${process.env.REACT_APP_UPLOAD_URL}/avatar.png`;
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      user: AuthService.getCurrentUser(),
-      role: ""
-    };
-  }
+    const { user } = AuthService.getCurrentUser() || {};
+    user.role = { name: this.props.role, _id: user.role };
 
-  componentDidMount() {
-    // Ensure that user's datas are not corrupted
-    AuthService.getUserRole().then(({ data }) => {
-      if (data.role) {
-        this.setState({ role: data.role.name }, this.redirectToLastTarget);
-      }
-    });
+    this.state = { user };
   }
 
   redirectToLastTarget() {
@@ -41,29 +32,28 @@ class Dashboard extends React.Component {
   }
 
   getDashboardContent() {
-    const { role } = this.state;
-    if (role === "manager") {
+    const { role } = this.state.user;
+    if (role.name === "manager") {
       return <DashboardManager user={this.state.user} />;
     }
-    if (role === "admin") {
+    if (role.name === "admin") {
       return <DashboardAdmin user={this.state.user} />;
     }
     return <DashboardClient user={this.state.user} />;
   }
 
   render() {
-    if (!this.state.role) return null;
-    const { role } = this.state;
-    const { user: userDetails } = this.state.user;
+    if (!this.state.user || !this.state.user.role) return null;
+    const { user } = this.state;
 
     return (
       <div className="min-h-full">
-        <HeaderDashboard user={{ ...userDetails, role, imageUrl: USER_IMG }} />
+        <HeaderDashboard user={{ ...user, imageUrl: USER_IMG }} />
         <main className="-mt-20 pb-8">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
             <div className="grid grid-cols-1 gap-4 items-start lg:grid-cols-1 lg:gap-8">
               <div className="grid grid-cols-1 gap-4 lg:col-span-2">
-                <PanelWelcome user={{ ...userDetails, imageUrl: USER_IMG }} />
+                <PanelWelcome user={{ ...user, imageUrl: USER_IMG }} />
                 {this.getDashboardContent()}
               </div>
             </div>
@@ -76,7 +66,8 @@ class Dashboard extends React.Component {
 }
 
 Dashboard.propTypes = {
-  router: PropTypes.object.isRequired
+  router: PropTypes.object.isRequired,
+  role: PropTypes.string
 };
 
 export default HocAuthentication(withRouter(Dashboard));
