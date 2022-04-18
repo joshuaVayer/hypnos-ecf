@@ -14,7 +14,7 @@ const HeaderDashboard = ({ user }) => {
     { name: i18next.t("profile"), href: "/profile" }
   ];
 
-  if (user.role === "admin" || user.role === "manager") {
+  if (user.role.name === "admin" || user.role.name === "manager") {
     navigation.push({ name: i18next.t("medias"), href: "/medias" });
   }
 

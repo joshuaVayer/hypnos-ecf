@@ -1,22 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
+const userIs = require("@middlewares/auth");
 const { upload, remove, getAll } = require("@controllers/upload");
 
-/**
- * Upload a media
- * @name /upload
- * @method POST
- */
 router.get("/", getAll);
 
-router.post("/", upload);
+router.post("/", userIs.adminOrManager, upload);
 
-/**
- * Delete an existing media
- * @name /upload
- * @method POST
- */
-router.delete("/:file", remove);
+router.delete("/:file", userIs.adminOrManager, remove);
 
 module.exports = router;

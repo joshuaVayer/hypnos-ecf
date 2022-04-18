@@ -31,7 +31,7 @@ const signup = async (req, res) => {
     role: clientRoleId
   });
 
-  // TODO: Send email to user with a link to verify their email address
+  // WHY NOT: Send email to user with a link to verify their email address
 
   const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: 60 * 60 });
 

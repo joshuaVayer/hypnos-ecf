@@ -2,25 +2,22 @@ const bcrypt = require("bcrypt");
 
 const { User } = require("@models/users");
 const { generateCrudMethods } = require("@utils/mongo");
-const { userIsAllowedToCreateRole, userIs } = require("@utils/mongo/user");
 
 module.exports = {
   // 1 - CRUD OPERATIONS
   ...generateCrudMethods(User),
 
   // 2 - CUSTOM OPERATIONS
+  /*
+   * Only meant to be used by admins to create new admins and managers
+   * Otherwise the /signup route should be used
+  */
   create: async (req, res) => {
     const { username, name, password, role, facilities } = req.body;
 
     if (!password) {
       res.status(400).send({
         error: "Password is required"
-      });
-    }
-
-    if (!userIsAllowedToCreateRole(req)) {
-      return res.status(403).send({
-        error: "You don't have the permission to create users"
       });
     }
 
@@ -42,18 +39,13 @@ module.exports = {
     }
   },
 
-  getAll: async (req, res) => {
-    if (!userIs("admin", req)) {
-      return res.status(403).send({
-        error: "You don't have the permission to get all users"
+  getAll: (_, res) => {
+    User.find({}).populate("role")
+      .then(users => {
+        res.status(200).send(users);
+      }).catch(err => {
+        res.status(500).send(err);
       });
-    }
-
-    try {
-      const users = await User.find({}).populate("role");
-      res.status(200).send(users);
-    } catch (error) {
-      res.status(400).send(error);
-    }
+    ;
   }
 };

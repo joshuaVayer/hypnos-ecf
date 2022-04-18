@@ -7,7 +7,6 @@ import List from "./list";
 import PickerDate from "@Controls/Picker/Date";
 
 const BookingList = ({ bookings }) => {
-  console.log(bookings);
   const [selectedDate, setSelectedDate] = React.useState(new Date());
 
   const handleSelect = date => {

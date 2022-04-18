@@ -7,7 +7,6 @@ import ContactService from "@Services/Contact";
 import { toFriendlyString } from "@Utils/dates";
 const Forms = () => {
   const [formSubmissions, setFormSubmissions] = React.useState([]);
-  console.log(formSubmissions);
 
   React.useEffect(() => {
     ContactService.getAll().then(setFormSubmissions);

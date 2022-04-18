@@ -8,49 +8,20 @@ const {
   remove,
   update
 } = require("@controllers/users");
+const userIs = require("@middlewares/auth");
 
-/**
- * Add a new user
- * @name /user
- * @method POST
- * @body {
- *  username: String,
- *  passwordHash: String,
- *  name: String,
- *  facilities: [{ type: Schema.Types.ObjectId, ref: "Facility", default: [] }],
- *  role: { type: Schema.Types.ObjectId, default: "Role" },
- *  createdAt: { type: Date, default: Date.now, required: true },
- *  updatedAt: { type: Date, default: Date.now, required: true }
- * }
- */
-router.post("/", create);
-
-/**
- * Get a user by id
- * @name path
- * @param {String} id
- */
-router.get("/", getAll);
-
-/**
- * Get a user by id
- * @name path
- * @param {String} id
- */
 router.get("/:id", getById);
 
-/**
- * Update an existing user
- * @name PUT
- * @param {type} param {description}
- */
-router.put("/:id", update);
+/*
+  * Only meant to be used by admins to create new admins or managers
+  * Otherwise the /signup route should be used
+*/
+router.post("/", userIs.admin, create);
 
-/**
- * Delete a user
- * @name path
- * @param {type} param {description}
- */
-router.delete("/:id", remove);
+router.delete("/:id", userIs.admin, remove);
+
+router.get("/", userIs.adminOrManager, getAll);
+
+router.put("/:id", userIs.himselfOrAdmin, update);
 
 module.exports = router;
