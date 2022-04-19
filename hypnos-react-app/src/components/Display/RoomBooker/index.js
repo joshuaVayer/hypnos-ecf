@@ -14,10 +14,10 @@ const RoomBooker = ({ facility, room, noFacilityUpdate, shouldRedirect }) => {
   const storageKeys = ["facility", "room", "endingDate", "startingDate"];
   storageKeys.forEach(key => localStorage.removeItem(key));
 
-  const [endingDate, setEndingDate] = React.useState(
+  const [startingDate, setStartingDate] = React.useState(
     storedStartDate ? new Date(storedStartDate) : tomorrow
   );
-  const [startingDate, setStartingDate] = React.useState(
+  const [endingDate, setEndingDate] = React.useState(
     storedEndDate ? new Date(storedEndDate) : tomorrow
   );
 
