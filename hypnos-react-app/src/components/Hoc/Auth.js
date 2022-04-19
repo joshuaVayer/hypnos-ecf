@@ -40,7 +40,11 @@ const RequireAuth = (
       const { isAuthenticated, role } = this.state;
       if (!isAuthenticated) return <Navigate to="/login" />;
       if (this.state.isAllowed === "pending")
-        return <div>Checking your rights...</div>;
+        return (
+          <div className="w-screen h-screen relative block bg-white opacity-75 z-50">
+            <div className="w-20 h-20 border-b-2 absolute -ml-10 shadow -mt-10 top-1/2 left-1/2 border-primary rounded-full animate-spin" />
+          </div>
+        );
       if (!this.state.isAllowed) return <Navigate to="/forbidden" />;
 
       return <Component {...this.props} role={role} />;

@@ -6,7 +6,12 @@
   "author": "Joshua Vayer <joshua.vayer@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start:prod": "(cd hypnos-server && yarn start) & (cd hypnos-react-app && yarn serve -s build)"
+    "setup": "(cd hypnos-server && yarn install) & (cd hypnos-react-app && yarn install)",
+    "start": "(cd hypnos-server && yarn start) & (cd hypnos-react-app && yarn build && yarn serve -s build)",
+    "---DEPLOYEMENT---": "",
+    "deploy:server": "heroku git:remote -a hypnos-express && git push heroku master",
+    "deploy:client": "heroku git:remote -a hypnos-react && git push heroku master",
+    "deploy": "deploy:server && deploy:client"
   },
   "private": false
 }

@@ -15,7 +15,7 @@ const Main = props => {
     const { view, id } = props.router.params;
     if (view === "contact") return <PageContact />;
     if (view === "forbidden") return <ForbidenPage />;
-    if (view === "facilities") return <PageFacilities />;
+    if (view === "facilities" && !id) return <PageFacilities />;
     if (view === "facilities" && id) return <PageFacilityDetails id={id} />;
     return <PageHome />;
   };

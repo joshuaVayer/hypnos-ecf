@@ -33,7 +33,7 @@ export const lines = (room, handleEditLine) => {
       fieldName: "price",
       type: "text",
       validations: [required],
-      label: i18next.t("room.price"),
+      label: i18next.t("room.price_in_cent"),
       value: room.price,
       action: (
         <ButtonSecondary onClick={() => handleEditLine("price")}>
