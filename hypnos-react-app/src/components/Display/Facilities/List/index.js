@@ -1,14 +1,15 @@
 import React from "react";
 import i18next from "i18next";
 import PropTypes from "prop-types";
-
+import { Link } from "react-router-dom";
 import { PlusIcon } from "@heroicons/react/outline";
 
-import { Link } from "react-router-dom";
+import RequireAuth from "@Hoc/Auth";
+
 import CardFacility from "@Controls/Card/Facility";
 import ButtonPrimary from "@Controls/Buttons/Primary";
 
-const FacilityList = ({ facilities, canCreate }) => {
+const FacilityList = ({ facilities }) => {
   return (
     <div>
       <div className="flex flex-row justify-between my-4">
@@ -20,20 +21,18 @@ const FacilityList = ({ facilities, canCreate }) => {
             {i18next.t("facilities_card_description")}
           </p>
         </div>
-        {canCreate && (
-          <div className="self-center">
-            <Link to="/dashboard/facilities/new">
-              <ButtonPrimary>
-                <div className="flex flex-row align-bottom text-sm gap-2 mx-2">
-                  <PlusIcon className="w-4" />
-                  <p className="font-medium truncate">
-                    {i18next.t("add_facility")}
-                  </p>
-                </div>
-              </ButtonPrimary>
-            </Link>
-          </div>
-        )}
+        <div className="self-center">
+          <Link to="/dashboard/facilities/new">
+            <ButtonPrimary>
+              <div className="flex flex-row align-bottom text-sm gap-2 mx-2">
+                <PlusIcon className="w-4" />
+                <p className="font-medium truncate">
+                  {i18next.t("add_facility")}
+                </p>
+              </div>
+            </ButtonPrimary>
+          </Link>
+        </div>
       </div>
       <ul
         role="list"
@@ -64,12 +63,7 @@ FacilityList.propTypes = {
       updatedAt: PropTypes.string,
       imageUrl: PropTypes.string
     })
-  ).isRequired,
-  canCreate: PropTypes.bool
+  ).isRequired
 };
 
-FacilityList.defaultProps = {
-  canCreate: true
-};
-
-export default FacilityList;
+export default RequireAuth(FacilityList, ["admin"]);

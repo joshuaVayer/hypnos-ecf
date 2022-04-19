@@ -13,9 +13,7 @@ class DashboardManager extends React.Component {
   renderDasboardView(view) {
     const allowedFacilities = this.props.user.facilities;
     if (view === "facilities")
-      return (
-        <Facilities allowedFacilities={allowedFacilities} canCreate={false} />
-      );
+      return <Facilities allowedFacilities={allowedFacilities} />;
     if (view === "bookings")
       return <Bookings allowedFacilities={allowedFacilities} shape="staff" />;
     if (view === "rooms")

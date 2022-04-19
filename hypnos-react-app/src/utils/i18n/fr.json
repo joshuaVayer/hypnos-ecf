@@ -126,6 +126,9 @@
   "confirm_upload_button": "Charger",
   "form_submissions": "Formulaire de contact",
   "room_no_images": "Aucune image pour cette chambre",
+  "submitted_on": "Soumis le",
+  "submissions.title": "Formulaire de contact",
+  "submissions.description": "Consultez les formulaires de contact soumis.",
   "new_user_warning_description": "Le compte que vous allez créer contiendra un mot de passe par défaut. Veuillez informer l'utilisateur de cette information et lui demander de chnager le mote de passe. Le mot de passe par défaut est \"Hypnos@1234\".",
   "menu": {
     "home": "Accueil",
@@ -194,6 +197,10 @@
     "name": "Suites",
     "externalLink": "Lien externe",
     "gallery": "Galerie d'images",
+    "roomNumber": "Nom de la chambre",
+    "room.description_description": "Faite une description de la chambre.",
+    "gallery_no_images": "Aucune image pour cette chambre",
+    "add_image": "Ajouter une image",
     "rooms_description": "Gérez les chambres de votre établissement."
   },
   "bookings": {

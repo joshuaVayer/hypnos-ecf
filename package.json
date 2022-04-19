@@ -11,7 +11,7 @@
     "---DEPLOYEMENT---": "",
     "deploy:server": "heroku git:remote -a hypnos-express && git push heroku master",
     "deploy:client": "heroku git:remote -a hypnos-react && git push heroku master",
-    "deploy": "deploy:server && deploy:client"
+    "deploy": "yarn deploy:server && yarn deploy:client"
   },
   "private": false
 }
