@@ -14,7 +14,7 @@ import RoomDetails from "./Details";
 
 const Rooms = ({ router }) => {
   const { id } = router.params;
-  const user = AuthService.getCurrentUser();
+  const { user } = AuthService.getCurrentUser() || {};
   const [rooms, setRooms] = React.useState([]);
   const [facilities, setFacilities] = React.useState([]);
 
@@ -27,7 +27,7 @@ const Rooms = ({ router }) => {
   };
 
   const fetchRooms = (callback = () => {}) => {
-    RoomService.getAll({ user: user.user._id }).then(rooms => {
+    RoomService.getAll({ facilityId: user.facilities }).then(rooms => {
       const promises = rooms.map(room =>
         FacilityService.get(room.facility).then(facility => {
           return { ...room, facility };
@@ -62,8 +62,6 @@ const Rooms = ({ router }) => {
   };
 
   React.useEffect(fetchRooms, []);
-
-  if (!rooms.length) return;
 
   const getPageContent = () => {
     if (id === "new")

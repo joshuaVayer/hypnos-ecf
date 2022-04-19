@@ -21,7 +21,6 @@ const beautifyPrice = price => {
 };
 
 const RoomList = ({ rooms }) => {
-  if (!rooms || !rooms.length) return <h2>Nothing to show</h2>;
   const table = {
     cols: [
       {

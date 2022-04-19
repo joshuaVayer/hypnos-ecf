@@ -198,8 +198,8 @@
     "externalLink": "Lien externe",
     "gallery": "Galerie d'images",
     "roomNumber": "Nom de la chambre",
-    "room.description_description": "Faite une description de la chambre.",
-    "gallery_no_images": "Aucune image pour cette chambre",
+    "description_description": "Faite une description de la chambre.",
+    "gallery_no_image": "Aucune image pour cette chambre",
     "add_image": "Ajouter une image",
     "rooms_description": "Gérez les chambres de votre établissement."
   },
