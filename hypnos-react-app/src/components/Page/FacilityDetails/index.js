@@ -19,7 +19,7 @@ const PageFacilityDetails = ({ id }) => {
       const promises = fetchedRooms.map(
         room =>
           new Promise((resolve, reject) => {
-            BookingService.getAll({ roomId: room._id })
+            BookingService.getAll({ room: room._id })
               .then(bookings => {
                 resolve({ ...room, bookings });
               })

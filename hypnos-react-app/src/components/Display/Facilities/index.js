@@ -13,7 +13,6 @@ const Facilities = ({ router, allowedFacilities, canCreate }) => {
   const [facilities, setFacilities] = React.useState([]);
 
   const handleFacilityUpdate = (fieldName, newValue) => {
-    console.log(fieldName, newValue);
     if (!id || id === "new") return;
 
     const facility = { _id: id, [fieldName]: newValue };

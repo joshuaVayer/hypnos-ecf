@@ -50,12 +50,12 @@ class RoomBookerForm extends React.Component {
   }
 
   fetchRelatedRooms() {
-    RoomService.getAll({ facilityId: this.state.facility._id }).then(
+    RoomService.getAll({ facilityId: [this.state.facility._id] }).then(
       fetchedRooms => {
         const promises = fetchedRooms.map(
           room =>
             new Promise((resolve, reject) => {
-              BookingService.getAll({ roomId: room._id, active: true })
+              BookingService.getAll({ room: room._id, active: true })
                 .then(bookings => {
                   resolve({ ...room, bookings });
                 })
