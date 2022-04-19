@@ -38,7 +38,6 @@ class Profile extends React.Component {
 
   initTable(callback = () => {}) {
     const { user } = this.state;
-
     if (!user) return;
 
     this.setState({ lines: tableLines(user, this.handleEditLine) }, callback);
@@ -73,15 +72,19 @@ class Profile extends React.Component {
       [key]: newValue
     };
 
-    UserService.update(newUser).then(user => {
+    UserService.update(newUser, true).then(user => {
       this.setState(
         { user: { ...user, role: this.state.user.role } },
         this.initTable
       );
+      // As user stored in lhe local storage is also updated
+      // we need to refresh the all page to rerender all related components
+      window.location.reload();
     });
   }
 
   handleCancelEditLine() {
+    // Make to reset data to the original state
     const user = AuthService.getCurrentUser();
     this.setState({ user }, this.initTable);
   }

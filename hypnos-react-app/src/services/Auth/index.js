@@ -43,11 +43,18 @@ class AuthService {
   }
 
   register(name, email, password) {
-    return axios.post(`${API_URL}/auth/signup/`, {
-      name,
-      username: email,
-      password
-    });
+    return axios
+      .post(`${API_URL}/auth/signup/`, {
+        name,
+        username: email,
+        password
+      })
+      .then(response => {
+        if (response.data.token) {
+          ls.set("user", JSON.stringify(response.data));
+        }
+        return response;
+      });
   }
 
   checkTokenValidity() {

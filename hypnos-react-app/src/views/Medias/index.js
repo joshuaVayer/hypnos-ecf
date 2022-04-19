@@ -5,11 +5,11 @@ import PropTypes from "prop-types";
 import AuthService from "@Services/Auth";
 
 import RequireAuth from "@Hoc/Auth";
+
 import Footer from "@Display/Footer";
+import PickerMedia from "@Controls/Picker/Media";
 import PanelWelcome from "@Display/Panel/Welcome";
 import HeaderDashboard from "@Display/Header/Dashboard";
-
-import PickerMedia from "@Controls/Picker/Media";
 
 const USER_IMG = `${process.env.REACT_APP_UPLOAD_URL}/avatar.png`;
 
@@ -26,9 +26,8 @@ class Medias extends React.Component {
   }
 
   onSelectMedia(media) {
-    // WIP
+    // TODO: should ask user if he really want to delete this media
     console.log(media);
-    // Then open modal to confirm deletion
   }
 
   render() {

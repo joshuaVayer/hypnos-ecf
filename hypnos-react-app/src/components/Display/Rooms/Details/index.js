@@ -137,7 +137,9 @@ class RoomDetails extends React.Component {
         <div className="border-t border-gray-200">
           <dl className="divide-y divide-gray-200">
             <div className="py-4 sm:py-5 sm:grid sm:grid-cols-3 sm:gap-4">
-              <dt className="text-sm font-medium text-gray-500">label</dt>
+              <dt className="text-sm font-medium text-gray-500">
+                {i18next.t("room.gallery")}
+              </dt>
               <dd className="mt-1 flex text-sm text-gray-900 sm:mt-0 sm:col-span-2">
                 {this.state.images && this.state.images.length ? (
                   <div className="flex-grow flex">
@@ -162,7 +164,7 @@ class RoomDetails extends React.Component {
                       this.setState({ isGalleryOpen: true });
                     }}
                   >
-                    {i18next.t("edit")}
+                    {i18next.t("add_image")}
                   </ButtonSecondary>
                 </span>
               </dd>

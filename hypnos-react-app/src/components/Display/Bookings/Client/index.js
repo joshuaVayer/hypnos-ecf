@@ -36,7 +36,7 @@ const BookingsClients = ({ bookings, onCancelBooking }) => {
           key: "endDate"
         },
         {
-          name: i18next.t("room"),
+          name: i18next.t("booked_room"),
           key: "room"
         },
         {
@@ -59,7 +59,6 @@ const BookingsClients = ({ bookings, onCancelBooking }) => {
         key: booking._id,
         room: booking.room.roomNumber,
         facility: booking.facility.name,
-        // TODO: check if booking is is still cancellable
         cancel: isBefore(todayPlus(3), booking.startDate) ? (
           <ButtonDanger
             className="w-24"

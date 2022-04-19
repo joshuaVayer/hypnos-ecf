@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { Navigate } from "react-router-dom";
 import AuthService from "@Services/Auth";
 
 import withRouter from "@Hoc/Router";
@@ -23,14 +24,6 @@ class Dashboard extends React.Component {
     this.state = { user };
   }
 
-  redirectToLastTarget() {
-    const target = localStorage.getItem("target");
-    if (target) {
-      localStorage.removeItem("target");
-      this.props.router.navigate(target);
-    }
-  }
-
   getDashboardContent() {
     const { role } = this.state.user;
     if (role.name === "manager") {
@@ -43,6 +36,12 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    const target = localStorage.getItem("target");
+    if (target) {
+      localStorage.removeItem("target");
+      return <Navigate to={target} />;
+    }
+
     if (!this.state.user || !this.state.user.role) return null;
     const { user } = this.state;
 

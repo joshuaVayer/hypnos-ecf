@@ -92,7 +92,6 @@ class Register extends React.Component {
         this.state.password
       ).then(
         response => {
-          AuthService.login(this.state.username, this.state.password);
           this.setState({
             message: response.data.message,
             successful: true

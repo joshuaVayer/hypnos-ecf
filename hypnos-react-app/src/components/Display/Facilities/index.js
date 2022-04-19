@@ -13,16 +13,17 @@ const Facilities = ({ router, allowedFacilities, canCreate }) => {
   const [facilities, setFacilities] = React.useState([]);
 
   const handleFacilityUpdate = (fieldName, newValue) => {
+    console.log(fieldName, newValue);
     if (!id || id === "new") return;
 
     const facility = { _id: id, [fieldName]: newValue };
 
-    FacilityService.update(facility).then(() => fetchFacilities);
+    FacilityService.update(facility).then(() => fetchFacilities());
   };
 
   const fetchFacilities = (callback = () => {}) =>
     FacilityService.getAll().then(facilities => {
-      if (allowedFacilities) {
+      if (allowedFacilities && allowedFacilities.length) {
         setFacilities(
           facilities.filter(f => allowedFacilities.includes(f._id))
         );

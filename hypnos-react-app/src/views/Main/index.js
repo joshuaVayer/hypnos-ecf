@@ -1,21 +1,22 @@
 import React from "react";
-import withRouter from "@Hoc/Router";
 import PropTypes from "prop-types";
 
+import withRouter from "@Hoc/Router";
+
 import PageHome from "@Page/Home";
+import PageContact from "@Page/Contact";
 import ForbidenPage from "@Page/Forbiden";
 import Header from "@Display/Header/Main";
-import PageFacilityDetails from "@Page/FacilityDetails";
 import PageFacilities from "@Page/Facilities";
-import PageContact from "@Page/Contact";
+import PageFacilityDetails from "@Page/FacilityDetails";
 
 const Main = props => {
   const getPage = () => {
     const { view, id } = props.router.params;
-    if (view === "facilities" && id) return <PageFacilityDetails id={id} />;
-    if (view === "facilities") return <PageFacilities />;
     if (view === "contact") return <PageContact />;
     if (view === "forbidden") return <ForbidenPage />;
+    if (view === "facilities") return <PageFacilities />;
+    if (view === "facilities" && id) return <PageFacilityDetails id={id} />;
     return <PageHome />;
   };
 

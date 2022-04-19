@@ -19,7 +19,7 @@ const findOrCreateAdmin = () =>
       User.find({ role: role._id }).then(user => {
         if (!user || user.length === 0) {
           const admin = new User({
-            username: "admin@admin.fr",
+            username: "admin@hypnos-hotel.com",
             passwordHash: bcrypt.hashSync(DEFAULT_ADMIN_PASSWORD, 10),
             name: "Admin",
             role: role._id

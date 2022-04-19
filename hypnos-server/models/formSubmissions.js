@@ -1,4 +1,5 @@
 const { Schema, model } = require("mongoose");
+const uniqueValidator = require("mongoose-unique-validator");
 
 const formSubmissionSchema = new Schema({
   name: { type: String, required: true },
@@ -10,7 +11,7 @@ const formSubmissionSchema = new Schema({
   createdAt: { type: Date, default: Date.now }
 });
 
-// TODO: add unique validation
+formSubmissionSchema.plugin(uniqueValidator);
 
 const FormSubmission = model("FormSubmission", formSubmissionSchema);
 

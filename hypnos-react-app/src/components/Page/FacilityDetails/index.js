@@ -116,7 +116,7 @@ const PageFacilityDetails = ({ id }) => {
             </div>
           </div>
           <div className="w-2/3">
-            <img src={facility.coverImage} />
+            <img src={selectedRoom ? selectedRoom.coverImage : ""} />
           </div>
         </div>
       </div>

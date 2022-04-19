@@ -61,6 +61,7 @@
   "state": "Région",
   "city": "Ville",
   "zip": "Code postal",
+  "people": "personnes",
   "address": "Adresse",
   "new_facility": "Nouvel établissement",
   "facility_new_description": "Créez un nouvel établissement.",
@@ -82,7 +83,7 @@
   "manager": "Gérant",
   "client": "Client",
   "admin": "Administrateur",
-  "room": "Chambre",
+  "booked_room": "Chambre",
   "empty_table": "Aucune donnée disponible dans ce tableau",
   "manager_color": "green",
   "admin_color": "red",
@@ -92,6 +93,12 @@
   "capacity": "Capacité",
   "facility": "Établissement",
   "add_user": "Ajouter un utilisateur",
+  "new_user": "Nouvel utilisateur",
+  "need_help": "Besoin d'aide ?",
+  "rooms": "Gérer les chambres",
+  "night": "nuit",
+  "guests": "invités",
+  "rooms_card_description": "Gérez les chambres de votre établissement.",
   "user_new_description": "Créez un nouvel utilisateur.",
   "users_edit_description": "Consultez ou modifiez les informations de l'utilisateur.",
   "home_title_first": "Découvrez l'exellence Hypnos,",
@@ -110,6 +117,8 @@
   "callout_title_more": "Un besoin spécifique, n'hésitez pas à nous contacter à travers notre formulaire de contact.",
   "contact_us": "Contactez-nous",
   "book_now": "Réserver maintenant",
+  "add_image": "Ajouter une image",
+  "remove_room": "Supprimer la chambre",
   "our_facilities": "Nos établissements",
   "new_user_warning": "Information importante",
   "new_user_warning_description": "Le compte que vous allez créer contiendra un mot de passe par défaut. Veuillez informer l'utilisateur de cette information et lui demander de chnager le mote de passe. Le mot de passe par défaut est \"Hypnos@1234\".",
@@ -167,6 +176,19 @@
       },
       "submit": "Envoyer"
     }
+  },
+  "room": {
+    "all_rooms": "Toutes les chambres",
+    "add_room": "Ajouter une chambre",
+    "cover": "Photo de couverture",
+    "description": "Description",
+    "facility": "Établissement",
+    "capacity": "Nombre de personnes",
+    "price": "Prix par nuit",
+    "name": "Suites",
+    "externalLink": "Lien externe",
+    "gallery": "Galerie d'images",
+    "rooms_description": "Gérez les chambres de votre établissement."
   },
   "bookings": {
     "clients": {
