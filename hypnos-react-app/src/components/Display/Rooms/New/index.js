@@ -36,6 +36,7 @@ const RoomNew = ({ onCreateRoom, facilities }) => {
   const [coverImage, setCoverImage] = React.useState("");
   const [description, setDescription] = React.useState("");
   const [openSelect, setOpenSelect] = React.useState(false);
+  const [externalLink, setExternalLink] = React.useState("");
   const [isGalleryOpen, setIsGalleryOpen] = React.useState(false);
 
   let form = null;
@@ -50,8 +51,10 @@ const RoomNew = ({ onCreateRoom, facilities }) => {
         roomNumber,
         capacity,
         images,
+        price,
         facility: facility._id,
         coverImage: coverImage.path,
+        externalLink,
         description
       };
       RoomService.create(newRoom).then(() => {
@@ -175,10 +178,28 @@ const RoomNew = ({ onCreateRoom, facilities }) => {
         </div>
         <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5 mb-4">
           <label
+            htmlFor="externalLink"
+            className="block text-sm font-medium text-gray-700"
+          >
+            {i18next.t("room.externalLink")}
+          </label>
+          <div className="mt-1 sm:mt-0 sm:col-span-1">
+            <Input
+              type="text"
+              className={formStyle.input}
+              name="externalLink"
+              value={externalLink}
+              onChange={e => setExternalLink(e.target.value)}
+              validations={[required]}
+            />
+          </div>
+        </div>
+        <div className="sm:grid sm:grid-cols-3 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 sm:pt-5 mb-4">
+          <label
             htmlFor="price"
             className="block text-sm font-medium text-gray-700"
           >
-            {i18next.t("room.price")}
+            {i18next.t("room.price_in_cent")}
           </label>
           <div className="mt-1 sm:mt-0 sm:col-span-1">
             <Input
