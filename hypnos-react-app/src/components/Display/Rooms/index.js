@@ -28,14 +28,11 @@ const Rooms = ({ router }) => {
 
   const fetchRooms = (callback = () => {}) => {
     RoomService.getAll({ facilityId: user.facilities }).then(rooms => {
-      const promises = rooms.map(room =>
-        FacilityService.get(room.facility).then(facility => {
-          return { ...room, facility };
-        })
+      const promises = user.facilities.map(facility =>
+        FacilityService.get(facility).then(facility => facility)
       );
-      Promise.all(promises).then(rooms => {
-        setRooms(rooms);
-        const facilities = rooms.map(room => room.facility);
+
+      Promise.all(promises).then(fetchFacilities => {
         const removeDuplicates = facilities => {
           const output = [];
           facilities.forEach(facility => {
@@ -44,7 +41,21 @@ const Rooms = ({ router }) => {
           });
           return output;
         };
-        setFacilities(removeDuplicates(facilities));
+        setFacilities(removeDuplicates(fetchFacilities));
+
+        const enhanceRooms = rooms => {
+          const output = [];
+          rooms.forEach(room => {
+            const facility = fetchFacilities.find(f => f._id === room.facility);
+            if (facility) {
+              room.facility = facility;
+              output.push(room);
+            }
+          });
+          return output;
+        };
+        setRooms(enhanceRooms(rooms));
+
         callback();
       });
     });
